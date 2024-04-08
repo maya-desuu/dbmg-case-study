@@ -14,8 +14,10 @@
 body{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
+
+/* FOR NAV BAR */
 
 header{
   display: flex;
@@ -62,13 +64,32 @@ a{
   flex-direction: column;
 }
 
+/* FOR HOME PAGE */
+/* FOR HOME PAGE */
+/* FOR HOME PAGE */
+
+
 .home.content{
+  flex-direction: row;
+  gap: 60px;
   flex: 1;
+  margin: 24px 0 24px 0;
+}
+
+.home-intro-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .home-intro{
   font-family: Merienda, sans-serif;
-  font-size: 4em;
+  font-size: 5em;
+}
+
+.home-intro-snippet{
+  font-size: 1.2em;
 }
 
 .get-started-button{
@@ -79,13 +100,29 @@ a{
   color: #eee;
   padding: 6px;
   cursor: pointer;
+  width: 130px;
+  height: 2.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .get-started-button:hover{
   background-color: #3e3e3e;
 }
 
+#homepage-pic{
+  height: 450px;
+  width: 450px;
+}
 
+.home-second-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
 
 /* 
 *
