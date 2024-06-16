@@ -2,41 +2,37 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 
-  <body>
+<body>
 
-    <% //nav bar %>
-      <%- include('./partials/nav.ejs') %>
+  <%- include('./partials/header.ejs') %>
 
-        <div class="register content">
-          <h1 class="form-h1">Registration</h1>
-          <p class="form-p">Already have an account? Log-in <a id="signInExistingAccount" href="/login">here</a>
-          </p>
-          <form action="/login" method="post">
-            <label for="email">Email</label>
-            <input type="text" id="username" name="email" required>
+  <div class="register content">
+    <h1 class="form-h1">Registration</h1>
+    <p class="form-p">Already have an account? Log-in <a id="signInExistingAccount" href="/login">here</a>
+    </p>
+    <form action="/login" method="post">
+      <label id="email-label" for="email">Email</label>
+      <input type="text" id="email" name="email" required>
 
-            <label id="full-name" for="full-name">Full Name</label>
-            <input type="text" name="full-name">
+      <label id="full-name" for="full-name">Full Name</label>
+      <input type="text" id="full-name" name="full-name">
 
-            <label id="student-number" for="student-number">Student Number</label>
-            <input type="text" name="student-number">
+      <label id="student-number" for="student-number">Student Number</label>
+      <input type="text" id="student-number" name="student-number">
 
-            <label id="year-and-section" for="year-and-section">Year & Section</label>
-            <input type="text" name="year-and-section">
+      <label id="year-and-section" for="year-and-section">Year & Section</label>
+      <input type="text" id="year-and-section" name="year-and-section">
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
 
-            <label for="confirm-password">Confirm Password</label>
-            <input type="confirm-password" id="confirm-password" name="confirm-password" required>
+      <label for="confirm-password">Confirm Password</label>
+      <input type="confirm-password" id="confirm-password" name="confirm-password" required>
 
-            <button id="sign-up" type="submit">Sign Up</button>
-          </form>
-          <div>
+      <button id="submit" type="submit">Register</button>
+    </form>
+  <div>
 
-            <% //footer %>
-              <%- include('./partials/footer.ejs') %>
-
-  </body>
+</body>
 
 </html>
