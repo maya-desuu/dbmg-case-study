@@ -1,29 +1,29 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
+
 const connectDB = require("./db/connect");
-equire("dotenv").config();
 
+// templating engine and static files
 app.set("view engine", "ejs");
-
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
+// router
+const pageRoutes = require("./routes/pageRoutes.js");
 
-app.get("/about", (req, res) => {
-  res.render("about", { title: "About" });
-});
+// error handler
+const notFoundMiddleWare = require("./middlewares/not-found.js");
+const errorHandlerMiddeWare = require("./middlewares/error-handler.js");
 
-app.get("/login", (req, res) => {
-  res.render("login", { title: "Get Started" });
-});
+// routes
+app.use("/", pageRoutes);
 
-app.use((req, res) => {
-  res.status(404).render("404");
-});
+app.use(notFoundMiddleWare);
+app.use(errorHandlerMiddeWare);
+
 const port = 3000;
 
+// connect db
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);

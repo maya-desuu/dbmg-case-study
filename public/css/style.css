@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-*{
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -11,7 +11,7 @@
   font-family: Roboto, sans-serif;
 }
 
-body{
+body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -19,44 +19,44 @@ body{
 
 /* FOR NAV BAR */
 
-header{
+header {
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 8px 60px 8px 60px;
 }
 
-.logo-container{
+.logo-container {
   display: flex;
   align-items: center;
 }
 
-#logo{
+#logo {
   width: 80px;
   height: 40px;
 }
 
-#logo-name{
+#logo-name {
   font-family: Merienda, sans-serif;
   font-size: 1.6em;
 }
 
-nav > ul{
+nav>ul {
   display: flex;
   gap: 16px;
   list-style-type: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-.links > a:hover{
+.links>a:hover {
   border-bottom: 2px solid black;
 }
 
-.content{
+.content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,34 +65,31 @@ a{
 }
 
 /* FOR HOME PAGE */
-/* FOR HOME PAGE */
-/* FOR HOME PAGE */
 
-
-.home.content{
+.home.content {
   flex-direction: row;
   gap: 60px;
   flex: 1;
   margin: 24px 0 24px 0;
 }
 
-.home-intro-container{
+.home-intro-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.home-intro{
+.home-intro {
   font-family: Merienda, sans-serif;
   font-size: 5em;
 }
 
-.home-intro-snippet{
+.home-intro-snippet {
   font-size: 1.2em;
 }
 
-.get-started-button{
+.get-started-button {
   margin-top: 24px;
   border: none;
   border-radius: 4px;
@@ -107,16 +104,16 @@ a{
   justify-content: center;
 }
 
-.get-started-button:hover{
+.get-started-button:hover {
   background-color: #3e3e3e;
 }
 
-#homepage-pic{
+#homepage-pic {
   height: 450px;
   width: 450px;
 }
 
-.home-second-container{
+.home-second-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,23 +122,17 @@ a{
 }
 
 /* 
-*
-*
-*
 FOR ABOUT PAGE
-*
-*
-*
 */
 
-.about-container{
+.about-container {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.about.content{
+.about.content {
   gap: 16px;
   justify-content: flex-start;
   height: 500px;
@@ -152,19 +143,16 @@ FOR ABOUT PAGE
   padding: 16px;
 }
 
-#about-intro{
+#about-intro {
   font-size: xx-large;
   font-weight: bold;
 }
 
 /*
-*
-*
-* FOR LOG-IN PAGE
-*
+* registration
 */
 
-form{
+form {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -178,45 +166,44 @@ form{
   border-radius: 8px;
   margin-top: 24px;
   margin-bottom: 56px;
-  
 }
 
-.form-h1{
+.form-h1 {
   margin-top: 32px;
 }
 
-.form-p{
+.form-p {
   margin-top: 8px;
   font-size: 14px;
   cursor: pointer;
 }
 
-#signInExistingAccount{
-  text-decoration:underline;
+#signInExistingAccount {
+  text-decoration: underline;
   text-decoration-color: rgba(0, 0, 0, 0.5);
 }
 
-#signUpExistingAccount:hover{
+#signUpExistingAccount:hover {
   text-decoration: none;
 }
 
-form > label{
+form>label {
   margin-top: 16px;
   margin-bottom: 5px;
 }
 
-#username{
+#username {
   margin-top: 0px;
 }
 
-form > input{
+form>input {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   height: 2.5rem;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
 }
 
-#submit{
+#submit {
   margin-top: 40px;
   height: 2.5rem;
   border: none;
@@ -224,22 +211,20 @@ form > input{
   color: #eee;
   font-size: 18px;
   cursor: pointer;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
-#submit:hover{
+#submit:hover {
   background-color: #3e3e3e;
 }
 
-footer{
-
+footer {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 16px;
   font-size: 14px;
-
 }
 
-#copyright{
+#copyright {
   color: gray;
 }

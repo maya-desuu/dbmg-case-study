@@ -1,5 +1,5 @@
 {
-  "name": "backendtesting",
+  "name": "dmgb-case-study",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -10,12 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
-    "mongoose": "^8.3.4",
-    "pug": "^3.0.3"
+    "mongoose": "^8.3.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",

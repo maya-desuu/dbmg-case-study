@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./partials/head.ejs')  %>
-<body>
-  
-  <% //for nav bar %>
-  <%- include('./partials/nav.ejs')  %>
+<%- include('./partials/head.ejs') %>
 
-  <div class="login content">
-    <h1 class="form-h1">Sign up for free</h1>
-    <p class="form-p">Or <a id="signInExistingAccount" href="#">sign in to your existing account</a></p>
-    <form action="/login" method="post">
-      <label id="username" for="username">Username</label>
-      <input type="text" name="username">
+  <body>
 
-      <label for="email">Email</label>
-      <input type="text" id="username" name="email" required>
+    <% //nav bar %>
+      <%- include('./partials/nav.ejs') %>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
+        <div class="login content">
+          <h1 class="form-h1">Sign up for free</h1>
+          <p class="form-p">Or <a id="signInExistingAccount" href="/">sign in to your existing account</a></p>
+          <form action="/login" method="post">
+            <label id="username" for="username">Username</label>
+            <input type="text" name="username">
 
-      <label for="password-confirmation">Password confirmation</label>
-      <input type="password-confirmation" id="password" name="password-confirmation" required>
+            <label for="email">Email</label>
+            <input type="text" id="username" name="email" required>
 
-      <button id="submit" type="submit">Sign Up</button>
-    </form>
-  <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
-  <% //for footer %>
-  <%- include('./partials/footer.ejs') %> 
-    
-</body>
+            <label for="password-confirmation">Password confirmation</label>
+            <input type="password-confirmation" id="password" name="password-confirmation" required>
+
+            <button id="submit" type="submit">Sign Up</button>
+          </form>
+          <div>
+
+            <% //footer %>
+              <%- include('./partials/footer.ejs') %>
+
+  </body>
+
 </html>
