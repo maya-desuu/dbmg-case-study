@@ -4,32 +4,29 @@
 
   <body>
 
-    <% //for nav bar %>
-      <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/nav.ejs') %>
 
-        <div class="home content">
-          <div class="home-intro-container">
-            <h1 class="home-intro">Thesis Trove</h1>
-            <p class="home-intro-snippet">A digital library for the research papers of BSCS students in EARIST.</p>
-            <a class="get-started-button" href="/login">Get Started</a>
-          </div>
-          <div>
-            <img src="./images/homepage-pic.jpg" alt="homepage-pic" id="homepage-pic">
-          </div>
+    <div class="home content">
+      <div class="home-intro">
+        <div class="home-text">
+          <p">Welcome to</p>
+          <p">COMSA Research</p>
+          <p">Libarary System!</p>
         </div>
+        <button class="home-button">
+          <ion-icon name="search-outline"></ion-icon>
+          <span class="home-button-text">Search Articles Here</span>
+        </button>  
+      </div>
+      <img src="../images/school.png" alt="school-picture" id="school-picture">
+    </div>
 
-        <div class="home-second-container">
-          <div>
-            THIS IS ANOTHER SECTION IF YOU WANNA ADD SOMETHING OR JUST REMOVE THIS OTHERWISE.
-            <%= // modify/remove this css and html as you see fit. CSS LINE: 119 %>
-          </div>
-        </div>
+    <%- include('./partials/footer.ejs') %>
 
-        <% //for footer %>
-          <%- include('./partials/footer.ejs') %>
-
-            <script src="script.js"></script>
-
+    <!--<script src="script.js"></script>-->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
   </body>
 
 </html>

@@ -8,6 +8,7 @@
   margin: 0;
   background-color: rgb(255, 255, 255);
   color: #000000;
+  /*font-size: 18px;*/
   font-family: DM Sans, sans-serif;
 }
 
@@ -39,33 +40,55 @@ header {
   height: 100px;
 }  
 
+#logo-name {
+  font-family: Fira Sans, sans-serif;
+  font-weight: 500;
+  font-size: 1.8em;
+}
+
+header>a {
+  text-decoration: none;
+}
+
 #statue {
   width: 200px;
   background: none;
   /*background-color: linear-gradient(to left, #4f9b3d, white 50%);*/
 }
 
-#logo-name {
-  font-family: Fira Sans, sans-serif;
-  font-weight: 600;
-  font-size: 1.6em;
-}
-
 /* nav bar */
 
-#nav-bar {
+nav {
+  height: 3rem;
   display: flex;
-  gap: 16px;
+  background: #4F9B3D;
+  justify-content: flex-end;
+}
+
+nav>ul {
+  background: none;
+  display: flex;
+  align-items: center;
   list-style-type: none;
+  gap: 32px;
+  padding-right: 55px;
 }
 
-a {
+.nav-link-separator {
+  color: white;
+  background: #4F9B3D;
+  font-size: 20px;
+}
+
+.nav-links {
+  background: #4F9B3D;
+  color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
 }
 
-.links>a:hover {
-  border-bottom: 2px solid black;
+.nav-links:hover {
+  border-bottom: 2px solid white; 
 }
 
 /* all contents */
@@ -84,60 +107,59 @@ a {
 *
 */
 
-
 .home {
   flex-direction: row;
+  justify-content: space-between;
   gap: 60px;
   flex: 1;
-  margin: 24px 0 24px 0;
-}
-
-.home-intro-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /*border: 2px solid black;*/
+  margin: 24px 0 0 0;
 }
 
 .home-intro {
-  font-family: Merienda, sans-serif;
-  font-size: 5em;
+  gap: 32px;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 60px;
 }
 
-.home-intro-snippet {
-  font-size: 1.2em;
+.home-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 4.5em;
+  font-weight: 550;
 }
 
-.get-started-button {
-  margin-top: 24px;
-  border: none;
-  border-radius: 4px;
-  background-color: #000000;
-  color: #eee;
-  padding: 6px;
+#school-picture {
+  width: 920px;
+  height: auto;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 22px;
+  background-color: #EFFFDC;
+  /*color: white;*/
+  border: 5px solid #4F9B3D;
+  border-radius: 5px;
   cursor: pointer;
-  width: 130px;
-  height: 2.3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 830px;
+  height: 70px;
 }
 
-.get-started-button:hover {
-  background-color: #3e3e3e;
+.home-button ion-icon {
+  font-size: 35px;
+  color: #4F9B3D;
+  background-color: #EFFFDC;
 }
 
-#homepage-pic {
-  height: 450px;
-  width: 450px;
-}
-
-.home-second-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1000px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.home-button-text {
+  margin-left: 8px;
+  background-color: #EFFFDC;
 }
 
 /* 
@@ -168,12 +190,8 @@ FOR ABOUT PAGE
 }
 
 /*
-* registration
+* registration and log-in
 */
-
-/*.register.content {*/
-/*   background: linear-gradient(to top, #4f9b3d, white 50%);*/
-/*}*/
 
 form {
   background-color: #4F9B3D;
@@ -193,13 +211,13 @@ form {
 }
 
 .form-h1 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-top: 32px;
 }
 
 p.form-p {
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -215,9 +233,8 @@ p.form-p {
 form>label {
   color: #ffffff;
   background-color: #4F9B3D;
-  margin-top: 16px;
-  margin-bottom: 5px;
-  font-size: 18px;
+  margin: 18px 0 5px 5px;
+  font-size: 20px;
 }
 
 #email-label {
@@ -229,6 +246,12 @@ form>input {
   border-radius: 20px;
   height: 2.5rem;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  text-indent: 5px; 
+  padding: 10px;  
+}
+
+form>input::placeholder {
+  font-size: 16px;
 }
 
 #submit {
@@ -244,8 +267,10 @@ form>input {
 }
 
 #submit:hover {
-  background-color: #2b2d2c;
+  background-color:  hsl(109, 61%, 26%);  
 }
+
+/* footer */
 
 footer {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
