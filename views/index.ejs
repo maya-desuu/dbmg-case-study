@@ -10,29 +10,32 @@
     <h1 class="form-h1">Registration</h1>
     <p class="form-p">Already have an account? Log-in <a id="signInExistingAccount" href="/login">here</a>
     </p>
-    <form action="/login" method="post">
-      <label id="email-label" for="email">Email</label>
-      <input type="text" id="email" name="email" required placeholder="example@gmail.com">
+      <form class="form" <!--action="/api/v1/auth/register" method="post" -->>
+      <label id="email-label" for="email-input">Email</label>
+      <input type="text" id="email-input" name="email-input" required placeholder="example@gmail.com">
 
-      <label id="full-name" for="full-name">Full Name</label>
-      <input type="text" id="full-name" name="full-name" required placeholder="Dela Cruz, J. Juan">
+      <label for="name-input">Full Name</label>
+      <input type="text" id="name-input" name="name-input" required placeholder="Dela Cruz, J. Juan">
 
-      <label id="student-number" for="student-number">Student Number</label>
-      <input type="text" id="student-number" name="student-number" required placeholder="135-09030M">
+      <label for="student-number-input">Student Number</label>
+      <input type="text" id="student-number-input" name="student-number-input" required placeholder="135-09030M">
 
-      <label id="year-and-section" for="year-and-section">Year & Section</label>
-      <input type="text" id="year-and-section" name="year-and-section" required placeholder="BSCS-1C">
+      <label for="year-and-section-input">Year & Section</label>
+      <input type="text" id="year-and-section-input" name="year-and-section-input" required placeholder="BSCS-1C">
 
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required>
 
-      <label for="confirm-password">Confirm Password</label>
-      <input type="confirm-password" id="confirm-password" name="confirm-password" required>
+      <label for="confirm-password-input">Confirm Password</label>
+      <input type="password" id="confirm-password-input" name="confirm-password-input" required>
 
       <button id="submit" type="submit">Register</button>
     </form>
   <div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../public/js"></script>      
+  
 </body>
 
 </html>
