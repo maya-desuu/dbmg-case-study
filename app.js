@@ -1,22 +1,26 @@
 const express = require("express");
 const app = express();
+require("express-async-errors");
 require("dotenv").config();
 
 const connectDB = require("./db/connect");
 
-// templating engine and static files
+// templating engine, static files, and jsons
 app.set("view engine", "ejs");
+app.use(express.json());
 app.use(express.static("public"));
 
 // router
-const pageRoutes = require("./routes/pageRoutes.js");
+const pagesRouter = require("./routes/pages.js");
+const authRouter = require("./routes/auth.js");
 
 // error handler
 const notFoundMiddleWare = require("./middlewares/not-found.js");
 const errorHandlerMiddeWare = require("./middlewares/error-handler.js");
 
 // routes
-app.use("/", pageRoutes);
+app.use("/", pagesRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddeWare);

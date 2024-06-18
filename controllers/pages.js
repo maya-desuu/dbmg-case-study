@@ -5,9 +5,11 @@ const registerPage = (req, res) => {
 const loginPage = (req, res) => {
   res.render("login", { title: "Log-in" });
 };
+
 const aboutPage = (req, res) => {
   res.render("about", { title: "About" });
 };
+
 const homePage = (req, res) => {
   res.render("home", { title: "Home" });
 };

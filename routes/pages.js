@@ -3,12 +3,14 @@ const router = express.Router();
 const {
   registerPage,
   loginPage,
+  homePage,
   aboutPage,
   databasePage,
-} = require("../controllers/pageController");
+} = require("../controllers/pages");
 
 router.get("/", registerPage);
 router.get("/login", loginPage);
+router.get("/home", homePage);
 router.get("/about", aboutPage);
 router.get("/database", databasePage);
 
