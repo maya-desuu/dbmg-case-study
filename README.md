@@ -1,3 +1,8 @@
+Low Prio To Do:
+
+- display a success msg if registration is successful, display err otherwise
+- ?
+
 #### Setup
 
 ```bash

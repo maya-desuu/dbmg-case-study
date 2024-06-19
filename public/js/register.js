@@ -1,22 +1,22 @@
 const axios = require("axios");
 
-const form = docucment.querySelector(".form");
-const nameInput = docucment.querySelector("#name-input");
-const emailInput = docucment.querySelector("#email - input");
-const studentNumberInput = docucment.querySelector("#student-number-input");
-const yearAndSectionInput = docucment.querySelector("#year-and-section-input");
-const passwordInput = docucment.querySelector("#password-input");
-const confirmPasswordInput = docucment.querySelector("#confirm-password-input");
+const form = document.querySelector(".form");
+const nameInput = document.querySelector("#name-input");
+const emailInput = document.querySelector("#email-input");
+const studentNumberInput = document.querySelector("#student-number-input");
+const yearAndSectionInput = document.querySelector("#year-and-section-input");
+const passwordInput = document.querySelector("#password-input");
+const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = nameInput;
-  const email = emailInput;
-  const studentNumber = studentNumberInput;
-  const yearAndSection = yearAndSectionInput;
-  const password = passwordInput;
-  const confirmPassword = confirmPasswordInput;
+  const name = nameInput.value;
+  const email = emailInput.value;
+  const studentNumber = studentNumberInput.value;
+  const yearAndSection = yearAndSectionInput.value;
+  const password = passwordInput.value;
+  const confirmPassword = confirmPasswordInput.value;
 
   try {
     const { data } = await axios.post("/api/v1/auth/register", {
@@ -27,5 +27,9 @@ form.addEventListener("submit", async (e) => {
       password,
       confirmPassword,
     });
-  } catch (error) {}
+    localStorage.setItem("token", data.token);
+  } catch (error) {
+    localStorage.getItem("token");
+    console.log(error.response.data.msg);
+  }
 });
