@@ -21,10 +21,7 @@ form.addEventListener("submit", async (e) => {
   console.log(formData);
 
   try {
-    const { data } = await axios.post(
-      "https://localhost:3000/api/v1/auth/register",
-      formData,
-    );
+    const { data } = await axios.post("/api/v1/auth/register", formData);
     console.log(data);
   } catch (error) {
     console.error(error);
