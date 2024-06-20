@@ -284,14 +284,16 @@ footer {
 }
 
 /*
+*
 * toastr styles
-* */
+*
+*/
 
 /* Custom Toastr Positioning */
 .toast-right-middle {
     top: 50%;
     transform: translateY(-50%);
-    right: 20px; /* Adjust as needed */
+    right: 20px; 
 }
 
 .toast {
@@ -300,7 +302,7 @@ footer {
     filter: alpha(opacity=100);
     border-radius: 4px;
     font-family: DM Sans, sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 1.5;
     background-color: none !important;  
 }

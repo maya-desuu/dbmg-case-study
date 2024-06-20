@@ -6,23 +6,31 @@ const yearAndSectionInput = document.querySelector("#year-and-section-input");
 const passwordInput = document.querySelector("#password-input");
 const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
+// clearing input values
+document.addEventListener("DOMContentLoaded", function(e) {
+  nameInput.value = "";
+  emailInput.value = "";
+  studentNumberInput.value = "";
+  yearAndSectionInput.value = "";
+  passwordInput.value = "";
+  confirmPasswordInput.value = "";
+
+  // manually adding the placeholder for email input (firefox removing it after removing input values)
+  //emailInput.placeholder = "example@gmail.com";
+});
+
 // configs for toastr. Library used for alert messages
 toastr.options = {
   closeButton: false,
   debug: false,
   newestOnTop: false,
   progressBar: true,
-  onShown: function() {
-    if ($(".toast").length > 3) {
-      $(".toast:first").remove(); // Remove the oldest notification
-    }
-  },
   positionClass: "toast-right-middle",
   preventDuplicates: true,
   onclick: null,
   showDuration: "300",
-  hideDuration: "1000",
-  timeOut: "3000",
+  hideDuration: "0",
+  timeOut: "2500",
   extendedTimeOut: "1000",
   showEasing: "swing",
   hideEasing: "linear",
@@ -47,20 +55,16 @@ form.addEventListener("submit", async (e) => {
     console.log(data);
     localStorage.setItem("token", data.token);
 
+    // show alert messages
     toastr.success("Account created. Redirecting.", "Success");
-
-    //nameInput.value = "";
-    //emailInput.value = "";
-    //studentNumberInput.value = "";
-    //yearAndSectionInput.value = "";
-    //passwordInput.value = "";
-    //confirmPasswordInput.value = "";
 
     setTimeout(() => {
       window.location.href = "/login";
-    }, 2500); // 2.5 secs delay
+    }, 2500);
   } catch (error) {
-    toastr.error("Invalid credentials. Please try again", "Error");
+    // show alert messages
+    toastr.error("Invalid credentials. Please try again.", "Error");
+
     if (error.response) {
       console.log(error.response.data);
       console.log(error.response.status);

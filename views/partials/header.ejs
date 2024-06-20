@@ -1,14 +1,30 @@
 <header>
-  <a href="/home">
+  <a href="/home" id="logo-link">
     <div class="logo-container">
       <img id="logo" src="./images/logo.png" alt="logo">
       <div>
         <h1 id="logo-name">COMSA</h1>
-        <h1 id="logo-name">STUDENT RESEARCH LIBRARY</h1>
+        <h1 id="logo-subtitle">STUDENT RESEARCH LIBRARY</h1>
       </div>
     </div>
   </a>
   <img id="statue" src="./images/statue.png" alt="statue">
 </header>
 
+<!-- make the link not work for register and login page -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoLink = document.getElementById('logo-link');
+    
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === '/' || currentPath === '/login') {
+      logoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        logoLink.style.cursor = 'default';
+        logoLink.style.pointerEvents = 'none'; 
+      });
+    }
+  });
+</script>
 
