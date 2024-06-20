@@ -5,11 +5,22 @@ require("dotenv").config();
 
 const connectDB = require("./db/connect");
 
-// templating engine, static files, and jsons
+// security packages
+const cors = require("cors");
+//const helmet = require("helmet");
+
 app.set("view engine", "ejs");
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("./public"));
+//app.use(helmet())
+const corsOptions = {
+  origin: "https://localhost:3000",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
+app.use(cors(corsOptions));
 // router
 const pagesRouter = require("./routes/pages.js");
 const authRouter = require("./routes/auth.js");

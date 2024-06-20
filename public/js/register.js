@@ -1,5 +1,3 @@
-const axios = require("axios");
-
 const form = document.querySelector(".form");
 const nameInput = document.querySelector("#name-input");
 const emailInput = document.querySelector("#email-input");
@@ -11,25 +9,24 @@ const confirmPasswordInput = document.querySelector("#confirm-password-input");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = nameInput.value;
-  const email = emailInput.value;
-  const studentNumber = studentNumberInput.value;
-  const yearAndSection = yearAndSectionInput.value;
-  const password = passwordInput.value;
-  const confirmPassword = confirmPasswordInput.value;
+  // form inputs
+  const formData = {
+    name: nameInput.value,
+    email: emailInput.value,
+    studentNumber: studentNumberInput.value,
+    yearAndSection: yearAndSectionInput.value,
+    password: passwordInput.value,
+    confirmPassword: confirmPasswordInput.value,
+  };
+  console.log(formData);
 
   try {
-    const { data } = await axios.post("/api/v1/auth/register", {
-      name,
-      email,
-      studentNumber,
-      yearAndSection,
-      password,
-      confirmPassword,
-    });
-    localStorage.setItem("token", data.token);
+    const { data } = await axios.post(
+      "https://localhost:3000/api/v1/auth/register",
+      formData,
+    );
+    console.log(data);
   } catch (error) {
-    localStorage.getItem("token");
-    console.log(error.response.data.msg);
+    console.error(error);
   }
 });
