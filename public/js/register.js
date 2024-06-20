@@ -6,10 +6,33 @@ const yearAndSectionInput = document.querySelector("#year-and-section-input");
 const passwordInput = document.querySelector("#password-input");
 const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
+// configs for toastr. Library used for alert messages
+toastr.options = {
+  closeButton: false,
+  debug: false,
+  newestOnTop: false,
+  progressBar: true,
+  onShown: function() {
+    if ($(".toast").length > 3) {
+      $(".toast:first").remove(); // Remove the oldest notification
+    }
+  },
+  positionClass: "toast-right-middle",
+  preventDuplicates: true,
+  onclick: null,
+  showDuration: "300",
+  hideDuration: "1000",
+  timeOut: "3000",
+  extendedTimeOut: "1000",
+  showEasing: "swing",
+  hideEasing: "linear",
+  showMethod: "fadeIn",
+  hideMethod: "fadeOut",
+};
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // form inputs
   const formData = {
     name: nameInput.value,
     email: emailInput.value,
@@ -18,12 +41,29 @@ form.addEventListener("submit", async (e) => {
     password: passwordInput.value,
     confirmPassword: confirmPasswordInput.value,
   };
-  console.log(formData);
 
   try {
     const { data } = await axios.post("/api/v1/auth/register", formData);
     console.log(data);
+    localStorage.setItem("token", data.token);
+
+    toastr.success("Account created. Redirecting.", "Success");
+
+    //nameInput.value = "";
+    //emailInput.value = "";
+    //studentNumberInput.value = "";
+    //yearAndSectionInput.value = "";
+    //passwordInput.value = "";
+    //confirmPasswordInput.value = "";
+
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 2500); // 2.5 secs delay
   } catch (error) {
-    console.error(error);
+    toastr.error("Invalid credentials. Please try again", "Error");
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+    }
   }
 });

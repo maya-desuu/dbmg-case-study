@@ -2,17 +2,20 @@ const express = require("express");
 const app = express();
 require("express-async-errors");
 require("dotenv").config();
+const morgan = require("morgan");
 
 const connectDB = require("./db/connect");
 
 // security packages
-const cors = require("cors");
+//const cors = require("cors");
 //const helmet = require("helmet");
 
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("./public"));
-app.use(cors());
+
+app.use(morgan("dev"));
+//app.use(cors());
 //app.use(helmet())
 
 // router
