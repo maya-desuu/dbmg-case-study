@@ -10,11 +10,11 @@
       <p class="form-p">Already have an account? Log-in <a id="signInExistingAccount" href="/login">here</a></p>
       
       <form class="form">
-          <label id="email-label" for="email-input">Email</label>
-          <input type="text" id="email-input" name="email" required placeholder="example@gmail.com">
-
           <label for="name-input">Full Name</label>
           <input type="text" id="name-input" name="name" required placeholder="Dela Cruz, J. Juan">
+
+          <label id="email-label" for="email-input">Email</label>
+          <input type="text" id="email-input" name="email" required placeholder="example@gmail.com">
 
           <label for="student-number-input">Student Number</label>
           <input type="text" id="student-number-input" name="studentNumber" required placeholder="135-09030M">
@@ -32,6 +32,9 @@
       </form>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./js/register.js"></script>     
   
 </body>

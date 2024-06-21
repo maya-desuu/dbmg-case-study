@@ -4,16 +4,10 @@ const emailInput = document.querySelector("#email-input");
 const passwordInput = document.querySelector("#password-input");
 
 // clearing input values
-document.addEventListener("DOMContentLoaded", function(e) {
+document.addEventListener("DOMContentLoaded", function() {
   nameInput.value = "";
   emailInput.value = "";
-  studentNumberInput.value = "";
-  yearAndSectionInput.value = "";
   passwordInput.value = "";
-  confirmPasswordInput.value = "";
-
-  // manually adding the placeholder for email input (firefox removing it after removing input values)
-  //emailInput.placeholder = "example@gmail.com";
 });
 
 // configs for toastr. Library used for alert messages
@@ -35,16 +29,35 @@ toastr.options = {
   hideMethod: "fadeOut",
 };
 
+const errorHandler = (error) => {
+  console.error(`Error: ${error.message}`);
+  console.error(`Error status: ${error.status}`);
+  console.error(`Error data: ${error.data}`);
+
+  if (error.response) {
+    const { status, data } = error.response;
+    if (status === 401) {
+      // Handle unauthorized access
+      toastr.error("Unauthorized access.", "Error");
+      localStorage.removeItem("token");
+    } else {
+      toastr.error(data.msg, "Error");
+    }
+  } else if (error.request) {
+    toastr.error("No response from server. Please try again later.", "Error");
+  } else {
+    toastr.error("An unexpected error occurred.", "Error");
+  }
+};
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // input values
   const formData = {
     name: nameInput.value,
     email: emailInput.value,
-    studentNumber: studentNumberInput.value,
-    yearAndSection: yearAndSectionInput.value,
     password: passwordInput.value,
-    confirmPassword: confirmPasswordInput.value,
   };
 
   try {
@@ -52,34 +65,23 @@ form.addEventListener("submit", async (e) => {
     console.log(data);
     localStorage.setItem("token", data.token);
 
-    // show alert messages
-    //toastr.success("Account created. Redirecting.", "Success");
-
-    //setTimeout(() => {
-    //  window.location.href = "/login";
-    //}, 2500);
+    // Authenticate token and access home route if successful
+    accessProtectedHomeRoute();
   } catch (error) {
-    //show alert messages
-    toastr.error("Invalid credentials. Please try again.", "Error");
-
-    if (error.response) {
-      console.log(error.response.data);
-      console.log(error.response.status);
-    }
+    errorHandler(error);
   }
 });
 
-form.addEventListener("submit", async (e) => {
-  token = localStorage.getItem("token");
+const accessProtectedHomeRoute = async () => {
+  const token = localStorage.getItem("token");
 
   try {
-    const { data } = await axios.get("/home", {
-      headears: {
+    await axios.get("/home", {
+      headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-  } catch (error) { }
-  localStorage.removeItem("token");
-  console.log(error.response.data);
-  console.log(error.response.status);
-});
+  } catch (error) {
+    errorHandler(error);
+  }
+};

@@ -10,6 +10,7 @@ const connectDB = require("./db/connect");
 //const cors = require("cors");
 //const helmet = require("helmet");
 
+// template engine, parse json objects, and static files
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("./public"));

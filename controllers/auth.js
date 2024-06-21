@@ -21,23 +21,24 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  console.log(req.body);
+  const { name, email, password } = req.body;
 
-  if (!email || !password) {
-    throw new BadRequestError("Please provide email or password");
+  if (!email || !password || !name) {
+    throw new BadRequestError("Please Provide Email Or Password");
   }
 
   // check if user exists
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new UnauthenticatedError("Invalid credentials");
+    throw new UnauthenticatedError("User Not Found");
   }
 
   // compare password
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Invalid credentials");
+    throw new UnauthenticatedError("Incorrect Password");
   }
 
   token = user.createJWT();

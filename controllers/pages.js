@@ -14,14 +14,14 @@ const homePage = (req, res) => {
   res.render("home", { title: "Home" });
 };
 
-const databasePage = (req, res) => {
-  res.render("database", { title: "Research Papers" });
+const articlePage = (req, res) => {
+  res.render("article", { title: "Articles" });
 };
 
 module.exports = {
   registerPage,
   loginPage,
   homePage,
-  databasePage,
+  articlePage,
   aboutPage,
 };

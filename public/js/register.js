@@ -7,7 +7,7 @@ const passwordInput = document.querySelector("#password-input");
 const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
 // clearing input values
-document.addEventListener("DOMContentLoaded", function(e) {
+document.addEventListener("DOMContentLoaded", function() {
   nameInput.value = "";
   emailInput.value = "";
   studentNumberInput.value = "";
@@ -53,16 +53,15 @@ form.addEventListener("submit", async (e) => {
   try {
     const { data } = await axios.post("/api/v1/auth/register", formData);
     console.log(data);
-    localStorage.setItem("token", data.token);
 
-    // show alert messages
+    // display success messages
     toastr.success("Account created. Redirecting.", "Success");
 
     setTimeout(() => {
       window.location.href = "/login";
     }, 2500);
   } catch (error) {
-    // show alert messages
+    // display err messages
     toastr.error("Invalid credentials. Please try again.", "Error");
 
     if (error.response) {
