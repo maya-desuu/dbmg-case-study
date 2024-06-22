@@ -2,26 +2,26 @@ const User = require("../models/User");
 const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
-//const register = async (req, res) => {
-//  //console.log(req.body);
-//  const user = await User.create(req.body);
-//  const token = user.createJWT();
-//  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
-//};
-
 const register = async (req, res) => {
-  try {
-    const user = await User.create(req.body);
-    const token = user.createJWT();
-    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
-  } catch (error) {
-    console.error(error);
-    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
-  }
+  //console.log(req.body);
+  const user = await User.create(req.body);
+  const token = user.createJWT();
+  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
 };
 
+//const register = async (req, res) => {
+//  try {
+//    const user = await User.create(req.body);
+//    const token = user.createJWT();
+//    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+//  } catch (error) {
+//    console.error(error);
+//    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+//  }
+//};
+
 const login = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const { name, email, password } = req.body;
 
   if (!email || !password || !name) {
@@ -42,7 +42,9 @@ const login = async (req, res) => {
   }
 
   token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  res
+    .status(StatusCodes.OK)
+    .json({ user: { name: user.name }, token, redirectUrl: "/home" });
 };
 
 module.exports = {

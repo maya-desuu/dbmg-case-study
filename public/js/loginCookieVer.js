@@ -27,6 +27,7 @@ const errorHandler = (error) => {
   if (error.response) {
     const { status, data } = error.response;
     if (status === 401) {
+      // Handle unauthorized access
       toastr.error("Unauthorized access.", "Error");
       localStorage.removeItem("token");
     } else {
@@ -52,15 +53,43 @@ form.addEventListener("submit", async (e) => {
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
     console.log(data);
-    const token = localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data.token);
 
-    await axios.get("/home", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    window.location.href = "/home";
+    // Authenticate token and access home route if successful
+    accessProtectedHomeRoute(data.token, data.redirectUrl);
+
+    // display alert
+    //toastr.success("Log-in successful. Redirecting.");
+
+    // redirect
   } catch (error) {
     errorHandler(error);
   }
 });
+
+const accessProtectedHomeRoute = async (token, redirectUrl) => {
+  try {
+    setCookie("token", token, 30); // Store token in a cookie for 30 days
+    //toastr.success("Log-in successful. Redirecting.");
+    window.location.href = "/home"; // Redirect to home
+
+    //const authAxios = axios.create({
+    //  headers: {
+    //    Authorization: `Bearer ${token}`,
+    //  },
+    //});
+    //
+    //await authAxios.get("/home");
+  } catch (error) {
+    errorHandler(error);
+    window.location.href = "/login";
+    localStorage.removeItem("token");
+  }
+};
+
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = `${name}=${value};${expires};path=/;SameSite=None;Secure`;
+}
