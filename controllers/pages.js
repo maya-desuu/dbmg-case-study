@@ -18,10 +18,15 @@ const articlePage = (req, res) => {
   res.render("article", { title: "Articles" });
 };
 
+const accountPage = (req, res) => {
+  res.render("account", { title: "Account" });
+};
+
 module.exports = {
   registerPage,
   loginPage,
   homePage,
   articlePage,
+  accountPage,
   aboutPage,
 };

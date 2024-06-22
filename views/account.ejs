@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+  <%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="home content">
+      <div class="home-intro">
+        <div class="home-text">
+          <p">Welcome to</p>
+          <p">COMSA Research</p>
+          <p">Libarary System!</p>
+        </div>
+        <button class="home-button">
+          <ion-icon name="search-outline"></ion-icon>
+          <span class="home-button-text">Search Articles Here</span>
+        </button>  
+      </div>
+      <img src="../images/school.png" alt="school-picture" id="school-picture">
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
+  </body>
+
+</html>
+

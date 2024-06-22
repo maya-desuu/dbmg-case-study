@@ -4,7 +4,7 @@ const emailInput = document.querySelector("#email-input");
 const passwordInput = document.querySelector("#password-input");
 
 // clearing input values
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   nameInput.value = "";
   emailInput.value = "";
   passwordInput.value = "";
@@ -20,13 +20,12 @@ toastr.options = {
 };
 
 const errorHandler = (error) => {
-  console.error(`Error: ${error.message}`);
-  console.error(`Error status: ${error.status}`);
-  console.error(`Error data: ${error.data}`);
+  console.error("Error occurred:", error.message);
 
   if (error.response) {
     const { status, data } = error.response;
     if (status === 401) {
+      // Handle unauthorized access
       toastr.error("Unauthorized access.", "Error");
       localStorage.removeItem("token");
     } else {
@@ -52,13 +51,12 @@ form.addEventListener("submit", async (e) => {
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
     console.log(data);
-    const token = localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data.token);
 
-    await axios.get("/home", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    //await axios.get("/home/", {
+    //  headers: { Authorization: `Bearer ${data.token}` },
+    //  withCredentials: true,
+    //});
     window.location.href = "/home";
   } catch (error) {
     errorHandler(error);

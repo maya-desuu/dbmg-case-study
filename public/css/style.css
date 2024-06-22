@@ -21,6 +21,7 @@ body {
 /* header */
 
 header {
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,6 +52,7 @@ header>a {
 }
 
 #statue {
+  pointer-events: none;
   width: 200px;
   background: none;
   /*background-color: linear-gradient(to left, #4f9b3d, white 50%);*/
@@ -59,6 +61,7 @@ header>a {
 /* nav bar */
 
 nav {
+  position: sticky;
   height: 3rem;
   display: flex;
   background: #4F9B3D;

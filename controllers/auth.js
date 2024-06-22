@@ -21,16 +21,14 @@ const register = async (req, res) => {
 //};
 
 const login = async (req, res) => {
-  //console.log(req.body);
   const { name, email, password } = req.body;
 
   if (!email || !password || !name) {
-    throw new BadRequestError("Please Provide Email Or Password");
+    throw new BadRequestError("Please Provide Email, Name, And Password");
   }
 
   // check if user exists
   const user = await User.findOne({ email });
-
   if (!user) {
     throw new UnauthenticatedError("User Not Found");
   }
@@ -41,10 +39,11 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
+  // create and send token to client
   token = user.createJWT();
-  res
-    .status(StatusCodes.OK)
-    .json({ user: { name: user.name }, token, redirectUrl: "/home" });
+  if (token) {
+    res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  }
 };
 
 module.exports = {
