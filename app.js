@@ -8,7 +8,6 @@ const morgan = require("morgan");
 //const helmet = require("helmet");
 
 const connectDB = require("./db/connect");
-const { initGridFS } = require("./db/gridFS");
 
 // template engine, parse json objects, and static files
 app.set("view engine", "ejs");
@@ -37,13 +36,12 @@ app.use("/api/v1/files", fileRouter);
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddeWare);
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// connect db
-const start = async () => {
+// connect db && start server
+const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    initGridFS();
     app.listen(port, () => {
       console.log(`Server running on port ${port}....`);
     });
@@ -52,4 +50,4 @@ const start = async () => {
   }
 };
 
-start();
+startServer();

@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
-const { handleFileUpload, getFile } = require("../controllers/files");
-const { fileUpload, folderUpload } = require("../admin/storage");
+const upload = require("../admin/storage");
+const {
+  handleFileUpload,
+  getFile,
+  getAllFiles,
+} = require("../controllers/files");
 
-router.post("/upload/file", fileUpload, handleFileUpload);
-router.post("/upload/folder", folderUpload, handleFileUpload);
+router.get("/", getAllFiles);
 router.get("/:filename", getFile);
+router.post("/upload/file", upload, handleFileUpload);
+router.post("/upload/folder", upload, handleFileUpload);
 
 module.exports = router;

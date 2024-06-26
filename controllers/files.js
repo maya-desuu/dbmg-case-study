@@ -1,27 +1,45 @@
-const { findFileByName, createReadStream } = require("../admin/storage");
+const mongoose = require("mongoose");
+//const Grid = require("gridfs-stream");
 const { StatusCodes } = require("http-status-codes");
 
-const handleFileUpload = (req, res) => {
+//let gfs;
+const conn = mongoose.connection;
+conn.once("open", () => {
+  gridFsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "uploads", // GridFS bucket name
+  });
+  //gfs = Grid(conn.db, mongoose.mongo);
+  //gfs.collection("uploads");
+  console.log("GridFS Initialized....");
+});
+
+const getAllFiles = async (req, res) => {
   try {
-    if (!req.files || req.files.length === 0) {
-      throw new Error("No files uploaded");
+    const files = await gridFsBucket.find({}).toArray();
+    if (!files || files.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({ err: "No files exist" }); // 404
     }
-    res.status(StatusCodes.CREATED).send({ file: req.file }); // 201
+
+    res.status(StatusCodes.OK).json(files);
   } catch (error) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ error: error.message }); // 500
+      .json({ error: error.message }); // 500
   }
 };
 
 const getFile = async (req, res) => {
   try {
-    const file = await findFileByName(req.params.filename);
-    if (!file) {
+    const files = await gridFsBucket
+      .find({ filename: req.params.filename })
+      .toArray();
+    if (!files || files.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({ err: "No file exists" }); // 404
     }
 
-    const readstream = createReadStream(file.filename);
+    const readstream = gridFsBucket.openDownloadStreamByName(
+      req.params.filename,
+    );
     readstream.on("error", (err) => {
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -33,7 +51,21 @@ const getFile = async (req, res) => {
   }
 };
 
+const handleFileUpload = (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      throw new Error("No files uploaded");
+    }
+    res.status(StatusCodes.CREATED).send({ file: req.file }); // 201
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR) // 500
+      .send({ error: error.message });
+  }
+};
+
 module.exports = {
   handleFileUpload,
   getFile,
+  getAllFiles,
 };
