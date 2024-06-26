@@ -4,22 +4,10 @@ const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const register = async (req, res) => {
-  //console.log(req.bod);
   const user = await User.create(req.body);
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
 };
-
-//const register = async (req, res) => {
-//  try {
-//    const user = await User.create(req.body);
-//    const token = user.createJWT();
-//    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
-//  } catch (error) {
-//    console.error(error);
-//    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
-//  }
-//};
 
 const login = async (req, res) => {
   const { name, email, password } = req.body;
@@ -46,7 +34,6 @@ const login = async (req, res) => {
     isAdmin = true;
   }
 
-  // create and send token to client
   token = user.createJWT();
   if (token) {
     res

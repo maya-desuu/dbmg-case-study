@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 //const Grid = require("gridfs-stream");
 const { StatusCodes } = require("http-status-codes");
 
+// Initialize gridfs once db conn is open
 //let gfs;
 const conn = mongoose.connection;
 conn.once("open", () => {
   gridFsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "uploads", // GridFS bucket name
+    bucketName: "uploads",
   });
   //gfs = Grid(conn.db, mongoose.mongo);
   //gfs.collection("uploads");
