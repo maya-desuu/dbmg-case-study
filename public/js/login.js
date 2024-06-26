@@ -51,11 +51,10 @@ form.addEventListener("submit", async (e) => {
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
     console.log(data);
-    localStorage.setItem("token", data.token);
+    localStorage.setItem("data", data);
 
     //await axios.get("/home/", {
     //  headers: { Authorization: `Bearer ${data.token}` },
-    //  withCredentials: true,
     //});
     window.location.href = "/home";
   } catch (error) {

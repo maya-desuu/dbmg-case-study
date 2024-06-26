@@ -1,9 +1,10 @@
 const User = require("../models/User");
+require("dotenv").config();
 const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const register = async (req, res) => {
-  //console.log(req.body);
+  //console.log(req.bod);
   const user = await User.create(req.body);
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
@@ -39,10 +40,18 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
+  // check if admin
+  let isAdmin = false;
+  if (user._id.toString() === process.env.ADMIN_ID) {
+    isAdmin = true;
+  }
+
   // create and send token to client
   token = user.createJWT();
   if (token) {
-    res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+    res
+      .status(StatusCodes.OK)
+      .json({ user: { name: user.name, isAdmin }, token });
   }
 };
 
