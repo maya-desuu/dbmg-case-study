@@ -16,12 +16,16 @@ npm init -y && npm install && npm start
 
 ```bash
 .
+├── admin
+│   └── uploadStorage.js
 ├── app.js
 ├── controllers
 │   ├── auth.js
+│   ├── files.js
 │   └── pages.js
 ├── db
-│   └── connect.js
+│   ├── connect.js
+│   └── gridFS.js
 ├── errors
 │   ├── bad-request.js
 │   ├── custom-api.js
@@ -47,7 +51,6 @@ npm init -y && npm install && npm start
 │   │   ├── favicon-16x16.png
 │   │   ├── favicon-32x32.png
 │   │   ├── favicon.ico
-│   │   ├── favicon_package_v0.16.zip
 │   │   ├── mstile-150x150.png
 │   │   ├── safari-pinned-tab.svg
 │   │   └── site.webmanifest
@@ -56,18 +59,19 @@ npm init -y && npm install && npm start
 │   │   ├── school.png
 │   │   └── statue.png
 │   └── js
-│       ├── confusedAF.js
-│       ├── libraryBundle.js
+│       ├── account.js
 │       ├── login.js
 │       └── register.js
 ├── README.md
 ├── routes
 │   ├── auth.js
+│   ├── files.js
 │   └── pages.js
 └── views
     ├── 404.ejs
     ├── about.ejs
-    ├── database.ejs
+    ├── account.ejs
+    ├── article.ejs
     ├── home.ejs
     ├── index.ejs
     ├── login.ejs
@@ -76,5 +80,4 @@ npm init -y && npm install && npm start
         ├── head.ejs
         ├── header.ejs
         └── nav.ejs
-
 ```
