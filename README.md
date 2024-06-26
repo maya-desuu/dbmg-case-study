@@ -1,76 +1,15 @@
 #### Low Prio To Do:
 
+- create logic on how to become admin
+- create gui for uploading files if admin
 - display a success msg if registration is successful, display err otherwise
+- send schema validation errs to reg page
 - using exports for toastr configs
 
 #### Setup
 
 ```bash
-npm install && npm start
-```
-
-#### Database Connection
-
-1. Import connect.js
-2. Invoke in start()
-3. Setup .env in the root
-4. Add MONGO_URI with correct value
-
-#### Routers
-
-- auth.js
-- pages.js
-
-#### User Model
-
-Email Validation Regex Or email-validator library
-
-```regex
-/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-```
-
-#### Register User
-
-- Validate - name, email, studentNumber, yearAndSection, and password, - with Mongoose
-- Hash Password (with bcryptjs)
-- Save User
-- Generate Token
-- Send Response with Token
-
-#### Login User
-
-- Validate - email, password - in controller
-- If email or password is missing, throw BadRequestError
-- Find User
-- Compare Passwords
-- If no user or password does not match, throw UnauthenticatedError
-- If correct, generate Token
-- Send Response with Token
-
-#### Mongoose Errors
-
-- Validation Errors
-- Duplicate (Email)
-- Cast Error
-
-#### Security
-
-- helmet
-- cors
-- xss-clean
-- express-rate-limit
-
-Swagger UI
-
-```yaml
-/jobs/{id}:
-  parameters:
-    - in: path
-      name: id
-      schema:
-        type: string
-      required: true
-      description: the job id
+npm init -y && npm install && npm start
 ```
 
 #### File Tree

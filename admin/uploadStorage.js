@@ -14,18 +14,6 @@ const storage = new GridFsStorage({
   },
 });
 
-//const storage = new GridFsStorage({
-//  url: process.env.MONGO_URI,
-//  file: (req, file) => {
-//    console.log(file);
-//    return {
-//      filename: file.originalname,
-//      bucketName: "GridFS",
-//      mimetype: file.mimetype,
-//    };
-//  },
-//});
-
 const allowedMimeTypes = [
   "application/msword", // .doc
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
@@ -40,7 +28,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage, fileFilter }).array("files", 200); // allow 200 files if files inside folder contains multiple files
+const upload = multer({ storage, fileFilter }).array("files", 200); // allow 200 files
 
 // WILL USE IF THE NEED TO HASH THE FILENAME ARISES
 //const folderStorage = new GridFsStorage({
