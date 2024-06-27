@@ -9,13 +9,12 @@
 #### Setup
 
 ```bash
-npm init -y && npm install && npm start
+npm install && npm start
 ```
 
 #### File Tree
 
 ```bash
-.
 ├── admin
 │   └── uploadStorage.js
 ├── app.js
@@ -24,8 +23,7 @@ npm init -y && npm install && npm start
 │   ├── files.js
 │   └── pages.js
 ├── db
-│   ├── connect.js
-│   └── gridFS.js
+│   └── connect.js
 ├── errors
 │   ├── bad-request.js
 │   ├── custom-api.js
@@ -43,17 +41,6 @@ npm init -y && npm install && npm start
 ├── public
 │   ├── css
 │   │   └── style.css
-│   ├── favicon
-│   │   ├── android-chrome-192x192.png
-│   │   ├── android-chrome-512x512.png
-│   │   ├── apple-touch-icon.png
-│   │   ├── browserconfig.xml
-│   │   ├── favicon-16x16.png
-│   │   ├── favicon-32x32.png
-│   │   ├── favicon.ico
-│   │   ├── mstile-150x150.png
-│   │   ├── safari-pinned-tab.svg
-│   │   └── site.webmanifest
 │   ├── images
 │   │   ├── logo.png
 │   │   ├── school.png
@@ -80,4 +67,5 @@ npm init -y && npm install && npm start
         ├── head.ejs
         ├── header.ejs
         └── nav.ejs
+
 ```
