@@ -11,6 +11,7 @@ const connectDB = require("./db/connect");
 
 // template engine, parse json objects, and static files
 app.set("view engine", "ejs");
+app.set("views", "./views");
 app.use(express.json());
 app.use(express.static("./public"));
 
@@ -20,7 +21,7 @@ app.use(morgan("dev"));
 //app.use(helmet())
 
 // router
-const pagesRouter = require("./routes/pages.js");
+const pageRouter = require("./routes/pages.js");
 const authRouter = require("./routes/auth.js");
 const fileRouter = require("./routes/files.js");
 
@@ -29,7 +30,7 @@ const notFoundMiddleWare = require("./middlewares/not-found.js");
 const errorHandlerMiddeWare = require("./middlewares/error-handler.js");
 
 // routes
-app.use("/", pagesRouter);
+app.use("/", pageRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/files", fileRouter);
 
