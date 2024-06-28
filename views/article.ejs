@@ -2,20 +2,31 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
   <body>
-     <%- include('./partials/header.ejs') %>
      <%- include('./partials/nav.ejs') %>
 
-      <h1>List of Files</h1>
-      <div class="files-container"></div>
-      <!--<div id="loading-indicator" style="display: none;">Loading...</div>-->
-      <!--<canvas id="pdf-canvas" style="border: 1px solid black; display: none;"></canvas>-->
-      <%- include('./partials/footer.ejs') %>
+    <div class="se-container content">
+      <label for="se" id="se-label"></label>
+      <input type="text" name="se" id="se">
+    </div>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      <script src="./js/article.js"></script>
+    <div class="files-container content">
+      <!-- file items will appear here --> 
+    </div>
+
+    <div class="loading-indicator">
+      <img id="loading-gif" src="../images/loading.gif" alt="Loading..."/>
+    </div>
+
+    <div class="pdf-container content">
+      <!-- canvas will appear here <-->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.worker.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
+    <script src="./js/article.js"></script>
   </body>
 </html>
 

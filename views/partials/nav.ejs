@@ -1,12 +1,21 @@
-<nav>
-  <ul id="nav-bar">
+<nav id="navbar">
+  <ul>
     <li><a class="nav-links" href="../article">Articles</a></li>
     <span class="nav-link-separator">|</span>
     <li><a class="nav-links" href="../about">About</a></li>
     <span class="nav-link-separator">|</span>
-    <!--<li><a class="nav-links" href="../notifications">Notifications</a></li> -->
-    <!--<span class="nav-link-separator">|</span>-->
     <li><a class="nav-links" href="../account" id="account-page-link">Account</a></li> 
   </ul>
 </nav>
+
+<script>
+  window.onscroll = function() { myFunction() };
+  const navbar = document.getElementById("navbar");
+
+  const sticky = navbar.offsetTop;
+
+  function myFunction() {
+   window.pageYOffset >= sticky ? navbar.classList.add("sticky") : navbar.classList.remove("sticky");
+  }
+</script>
 

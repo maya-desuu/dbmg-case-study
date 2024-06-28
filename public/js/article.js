@@ -1,14 +1,18 @@
+const loadingIndicator = document.querySelector(".loading-indicator");
+
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await axios.get("/api/v1/files");
-    console.log("all file data: ", response.data);
     const files = response.data;
 
     // Clear existing content in files container
     const filesContainer = document.querySelector(".files-container");
     filesContainer.innerHTML = "";
 
-    // Iterate over files and create file items dynamically. (could've used files.forEach() tho its def cooler this way)
+    // hide once dom is loaded
+    toggleVisibility(loadingIndicator, false);
+
+    // Iterate over files and create file items dynamically
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
@@ -23,10 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       //fileItem.appendChild(fileContent);
 
       fileItem.addEventListener("click", () => {
-        windows.href = `.../views/viewPDF.ejs?id=${file._id}`;
         showFileContents(file.filename);
       });
-      // insert file item to container after each loop
+      // append file item to container after each loop
       filesContainer.appendChild(fileItem);
     }
   } catch (error) {
@@ -36,59 +39,91 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function showFileContents(filename) {
-  const loadingIndicator = document.getElementById("loading-indicator"); // loading cue
-  const canvas = document.getElementById("pdf-canvas"); // grab canvas elem
-  loadingIndicator.style.display = "block";
-  //canvas.style.display = "none";
+  const filesContainer = document.querySelector(".files-container");
+  const pdfContainer = document.querySelector(".pdf-container");
+  const seContainer = document.querySelector(".se-container");
+
+  // hide elems
+  toggleVisibility(filesContainer, false);
+  toggleVisibility(seContainer, false);
+
+  // show loading cue
+  toggleVisibility(loadingIndicator, true);
+  try {
+    const pdfData = await fetchFile(filename);
+    const pdf = await loadPDF(pdfData);
+
+    // loop through each page and render them
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      await renderPage(pdf, pageNum, pdfContainer).then();
+
+      //hide the loading cue if the first page finished loading
+      if (pageNum === 1) {
+        toggleVisibility(loadingIndicator, false);
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching or rendering file contents:", error);
+    alert("Failed to render PDF contents. Please try again later.");
+  }
+}
+
+async function fetchFile(filename) {
   try {
     const response = await axios.get(`/api/v1/files/${filename}`, {
-      responseType: "arraybuffer", // specify response type as arraybuffer to handle binary data such as ofc PDF
+      responseType: "arraybuffer",
     });
-    console.log("response data: ", response.data);
-
-    // Convert the response to a Blob
-    const pdfData = new Uint8Array(response.data);
-    console.log("pdf data: ", pdfData);
-
-    // render the PDF content (used pdf.js for rendering pdf's, great docs too)
-    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
-    loadingTask.promise.then(
-      (pdf) => {
-        console.log("PDF loaded");
-
-        // Fetch the first page
-        pdf.getPage(1).then((page) => {
-          console.log("Page loaded");
-
-          const scale = 1.5;
-          const viewport = page.getViewport({ scale: scale });
-
-          // Prepare the canvas
-          const canvas = document.getElementById("pdf-canvas");
-          const context = canvas.getContext("2d");
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
-          // Render the page into the canvas context
-          const renderContext = {
-            canvasContext: context,
-            viewport: viewport,
-          };
-
-          page.render(renderContext).promise.then(() => {
-            console.log("Page rendered");
-            loadingIndicator.style.display = "none";
-            canvas.style.display = "block";
-          });
-        });
-      },
-      function (reason) {
-        console.error(reason);
-        alert("Failed to render PDF. Please try again.");
-      },
-    );
+    //console.log("Response Data: ", response.data);
+    return new Uint8Array(response.data);
   } catch (error) {
-    console.error("Error fetching file contents:", error);
-    alert("Failed to fetch file contents. Please try again.");
+    throw new Error("Error fetching file contents: " + error.message);
   }
+}
+
+async function loadPDF(pdfData) {
+  try {
+    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+    const pdf = await loadingTask.promise;
+    return pdf;
+  } catch (error) {
+    throw new Error("Error loading PDF: " + error.message);
+  }
+}
+
+async function renderPage(pdf, pageNum, container) {
+  try {
+    const page = await pdf.getPage(pageNum);
+    console.log("Page loaded");
+
+    const scale = 1.5;
+    const viewport = page.getViewport({ scale: scale });
+
+    //// Set a fixed width for the canvas and adjust the scale accordingly
+    //const fixedWidth = 1200;
+    //const viewport = page.getViewport({ scale: 1 });
+    //const scale = fixedWidth / viewport.width;
+    //const scaledViewport = page.getViewport({ scale: scale });
+
+    // Prepare the canvas
+    const canvas = document.createElement("canvas");
+    canvas.classList.add("canvas");
+    container.appendChild(canvas);
+    const context = canvas.getContext("2d");
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    // Render the page into the canvas context
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+
+    await page.render(renderContext).promise;
+  } catch (error) {
+    throw new Error(`Error rendering page ${pageNum}: ${error.message}`);
+  }
+}
+
+function toggleVisibility(element, show) {
+  element.style.display = show ? "block" : "none";
 }
