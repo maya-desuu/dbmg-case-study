@@ -2,7 +2,8 @@
 <html lang="en">
   <%- include('./partials/head.ejs') %>
   <body>
-     <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/nav.ejs') %>
 
     <div class="se-container content">
       <label for="se" id="se-label"></label>
@@ -21,6 +22,9 @@
       <!-- canvas will appear here <-->
     </div>
 
+    <%- include('./partials/footer.ejs') %>
+
+    <!--<%- include('./partials/footer.ejs') %>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.worker.min.js"></script>
