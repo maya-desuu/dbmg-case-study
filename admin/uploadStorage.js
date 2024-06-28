@@ -15,8 +15,8 @@ const storage = new GridFsStorage({
 });
 
 const allowedMimeTypes = [
-  "application/msword", // .doc
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+  //"application/msword", // .doc
+  //"application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
   "application/pdf", // .pdf
 ];
 

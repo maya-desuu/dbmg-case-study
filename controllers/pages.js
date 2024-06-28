@@ -10,6 +10,10 @@ const aboutPage = (req, res) => {
   res.render("about", { title: "About" });
 };
 
+const articlePage = (req, res) => {
+  res.render("article", { title: "Articles" });
+};
+
 const homePage = (req, res) => {
   res.render("home", { title: "Home" });
 };
@@ -23,7 +27,7 @@ module.exports = {
   loginPage,
   homePage,
   accountPage,
-  tmpPage,
-  //articlePage,
+  //tmpPage,
+  articlePage,
   aboutPage,
 };

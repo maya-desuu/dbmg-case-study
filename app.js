@@ -11,7 +11,6 @@ const connectDB = require("./db/connect");
 
 // template engine, parse json objects, and static files
 app.set("view engine", "ejs");
-app.set("views", "./views");
 app.use(express.json());
 app.use(express.static("./public"));
 
