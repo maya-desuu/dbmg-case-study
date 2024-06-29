@@ -7,6 +7,7 @@ const {
   aboutPage,
   accountPage,
   articlePage,
+  viewArticle,
 } = require("../controllers/pages");
 
 const authentication = require("../middlewares/authentication");
@@ -14,8 +15,9 @@ const authentication = require("../middlewares/authentication");
 router.get("/", registerPage);
 router.get("/login", loginPage);
 router.get("/home", homePage);
-router.get("/article", articlePage);
 router.get("/about", aboutPage);
 router.get("/account", accountPage);
+router.get("/article", articlePage);
+router.get("/view-article", viewArticle);
 
 module.exports = router;

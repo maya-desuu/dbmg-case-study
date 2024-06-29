@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await axios.get("/api/v1/files");
-    console.log("all file data: ", response.data);
     const files = response.data;
 
-    // Clear existing content in files container
     const filesContainer = document.querySelector(".files-container");
-    const filesList = document.querySelector(".files-list");
-    filesList.innerHTML = "";
+    filesContainer.innerHTML = "";
 
     // Iterate over files and create file items dynamically
     for (let i = 0; i < files.length; i++) {
@@ -18,16 +15,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       fileItem.setAttribute("data-filename", file.filename);
       fileItem.textContent = file.filename;
 
-      //const fileContent = document.createElement("div");
-      //fileContent.classList.add("file-content");
-      //fileContent.id = `content-${file.filename}`;
-      //fileItem.appendChild(fileContent);
+      const previewElement = document.createElement("div");
+      previewElement.classList.add("file-preview");
+      previewElement.textContent = "Loading preview...";
 
-      fileItem.addEventListener("click", () => {
-        showFileContents(file.filename);
+      fileItem.appendChild(previewElement);
+
+      fileItem.addEventListener("click", async () => {
+        showFileContents(file.filename, previewElement);
       });
-      // append file item to container after each loop
-      filesList.appendChild(fileItem);
+
+      filesContainer.appendChild(fileItem);
     }
   } catch (error) {
     console.error("Error fetching files:", error);
@@ -35,75 +33,105 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-async function showFileContents(filename) {
+async function showFileContents(filename, previewElement) {
   const filesContainer = document.querySelector(".files-container");
-  const pdfContainer = document.querySelector(".pdf-container");
-  const loadingIndicator = document.querySelector("#loading-indicator");
+  const fileContainer = document.getElementById("file-container");
+  const loadingIndicator = document.querySelector(".loading-indicator");
 
-  // Hide file list and show PDF container
-  filesContainer.style.display = "none";
-  pdfContainer.style.display = "block";
-
-  // Show loading cue
-  loadingIndicator.style.display = "block";
+  toggleVisibility(filesContainer, false);
+  toggleVisibility(fileContainer, true);
+  toggleVisibility(loadingIndicator, true);
 
   try {
-    const response = await axios.get(`/api/v1/files/${filename}`, {
-      responseType: "arraybuffer", // Specify response type as arraybuffer to handle binary data such as PDF
-    });
-    console.log("Response data: ", response.data);
+    const pdfData = await fetchFile(filename);
+    const pdf = await loadPDF(pdfData);
+    const textContent = await extractTextFromPDF(pdf);
 
-    // Convert the response to a Uint8Array
-    const pdfData = new Uint8Array(response.data);
-    console.log("PDF data: ", pdfData);
+    // Display preview of the contents
+    displayPreview(textContent, previewElement);
 
-    // Function to render each page
-    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
-    loadingTask.promise.then(
-      async (pdf) => {
-        console.log("PDF loaded");
+    // Render full PDF content
+    const pdfContainer = document.createElement("div");
+    pdfContainer.classList.add("pdf-container");
 
-        // Load and render the page
-        const renderPage = async (pageNum) => {
-          pdf.getPage(pageNum).then(async (page) => {
-            console.log("Page loaded");
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      await renderPage(pdf, pageNum, pdfContainer);
+    }
 
-            const scale = 1.5;
-            const viewport = page.getViewport({ scale: scale });
+    // Clear previous PDF content if any
+    fileContainer.innerHTML = "";
+    fileContainer.appendChild(pdfContainer);
 
-            // Prepare the canvas
-            const canvas = document.createElement("canvas");
-            pdfContainer.appendChild(canvas);
-            const context = canvas.getContext("2d");
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            // Render the page into the canvas context
-            const renderContext = {
-              canvasContext: context,
-              viewport: viewport,
-            };
-
-            await page.render(renderContext).promise.then(() => {
-              loadingIndicator.style.display = "none";
-              canvas.style.display = "block";
-            });
-            console.log(`Page ${pageNum} rendered`);
-          });
-        };
-
-        // Loop through all pages and render them
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          renderPage(pageNum);
-        }
-      },
-      (reason) => {
-        console.error(reason);
-        alert("Failed to load PDF. Please try again.");
-      },
-    );
+    toggleVisibility(loadingIndicator, false);
   } catch (error) {
-    console.error("Error fetching file contents:", error);
-    alert("Failed to fetch PDF contents. Please try again.");
+    console.error("Error fetching or rendering file contents:", error);
+    alert("Failed to render PDF contents. Please try again later.");
   }
+}
+
+async function fetchFile(filename) {
+  try {
+    const response = await axios.get(`/api/v1/files/${filename}`, {
+      responseType: "arraybuffer",
+    });
+    return new Uint8Array(response.data);
+  } catch (error) {
+    throw new Error("Error fetching file contents: " + error.message);
+  }
+}
+
+async function loadPDF(pdfData) {
+  try {
+    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+    const pdf = await loadingTask.promise;
+    return pdf;
+  } catch (error) {
+    throw new Error("Error loading PDF: " + error.message);
+  }
+}
+
+async function renderPage(pdf, pageNum, container) {
+  try {
+    const page = await pdf.getPage(pageNum);
+    const scale = 1.5;
+    const viewport = page.getViewport({ scale: scale });
+
+    const canvas = document.createElement("canvas");
+    canvas.classList.add("canvas");
+    container.appendChild(canvas);
+    const context = canvas.getContext("2d");
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+
+    await page.render(renderContext).promise;
+  } catch (error) {
+    throw new Error(`Error rendering page ${pageNum}: ${error.message}`);
+  }
+}
+
+function toggleVisibility(element, show) {
+  element.style.display = show ? "block" : "none";
+}
+
+function displayPreview(textContent, previewElement, previewLength = 200) {
+  const preview =
+    textContent.length > previewLength
+      ? textContent.substring(0, previewLength) + "..."
+      : textContent;
+  previewElement.textContent = preview;
+}
+
+async function extractTextFromPDF(pdf) {
+  let textContent = "";
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+    const page = await pdf.getPage(pageNum);
+    const text = await page.getTextContent();
+    textContent += text.items.map((item) => item.str).join(" ");
+  }
+  return textContent;
 }

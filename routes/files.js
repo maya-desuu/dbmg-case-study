@@ -9,7 +9,7 @@ const {
 } = require("../controllers/files");
 
 router.get("/", getAllFiles);
-router.get("/:filename", getFile);
+router.get("/:id", getFile);
 router.post("/upload/file", upload, handleFileUpload);
 router.post("/upload/folder", upload, handleFileUpload);
 

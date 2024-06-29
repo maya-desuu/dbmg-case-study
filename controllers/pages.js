@@ -1,3 +1,5 @@
+const { getFile } = require("./files");
+
 const registerPage = (req, res) => {
   res.render("index", { title: "Register" });
 };
@@ -22,12 +24,16 @@ const accountPage = (req, res) => {
   res.render("account", { title: "Account" });
 };
 
+const viewArticle = async (req, res) => {
+  res.render("view-article", { title: "View Article" });
+};
+
 module.exports = {
   registerPage,
   loginPage,
   homePage,
   accountPage,
-  //tmpPage,
   articlePage,
+  viewArticle,
   aboutPage,
 };

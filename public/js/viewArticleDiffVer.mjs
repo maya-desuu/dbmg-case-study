@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const filesContainer = document.querySelector(".files-container");
     filesContainer.innerHTML = "";
 
-    // hide once dom is loaded
+    // hide elems once dom is loaded
     toggleVisibility(loadingIndicator, false);
 
     // Iterate over files and create file items dynamically
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const fileItem = document.createElement("div");
       fileItem.classList.add("file-item");
-      fileItem.setAttribute("data-filename", file.filename);
+      fileItem.setAttribute("data-id", file._id);
       fileItem.textContent = file.filename;
 
       //const fileContent = document.createElement("div");
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       //fileItem.appendChild(fileContent);
 
       fileItem.addEventListener("click", () => {
-        showFileContents(file.filename);
+        showFileContents(file._id);
       });
       // append file item to container after each loop
       filesContainer.appendChild(fileItem);
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-async function showFileContents(filename) {
+async function showFileContents(fileId) {
   const filesContainer = document.querySelector(".files-container");
   const pdfContainer = document.querySelector(".pdf-container");
   const seContainer = document.querySelector(".se-container");
@@ -50,14 +50,14 @@ async function showFileContents(filename) {
   // show loading cue
   toggleVisibility(loadingIndicator, true);
   try {
-    const pdfData = await fetchFile(filename);
+    const pdfData = await fetchFile(fileId);
     const pdf = await loadPDF(pdfData);
 
     // loop through each page and render them
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       await renderPage(pdf, pageNum, pdfContainer).then();
 
-      //hide the loading cue if the first page finished loading
+      //hide the loading cue
       if (pageNum === 1) {
         toggleVisibility(loadingIndicator, false);
       }
@@ -68,13 +68,13 @@ async function showFileContents(filename) {
   }
 }
 
-async function fetchFile(filename) {
+async function fetchFile(fileId) {
   try {
-    const response = await axios.get(`/api/v1/files/${filename}`, {
+    const response = await axios.get(`/api/v1/files/${fileId}`, {
       responseType: "arraybuffer",
     });
     //console.log("Response Data: ", response.data);
-    return new Uint8Array(response.data);
+    return response.data;
   } catch (error) {
     throw new Error("Error fetching file contents: " + error.message);
   }
@@ -88,42 +88,46 @@ async function loadPDF(pdfData) {
   } catch (error) {
     throw new Error("Error loading PDF: " + error.message);
   }
-}
 
-async function renderPage(pdf, pageNum, container) {
-  try {
-    const page = await pdf.getPage(pageNum);
-    console.log("Page loaded");
+  async function renderPage(pdf, pageNum, container) {
+    try {
+      const page = await pdf.getPage(pageNum);
+      console.log("Page loaded");
 
-    const scale = 1.5;
-    const viewport = page.getViewport({ scale: scale });
+      const scale = 2; // higher scale === higher resolution (tho its gets laggy if its around 3)
+      const viewport = page.getViewport({ scale: scale });
 
-    //// Set a fixed width for the canvas and adjust the scale accordingly
-    //const fixedWidth = 1200;
-    //const viewport = page.getViewport({ scale: 1 });
-    //const scale = fixedWidth / viewport.width;
-    //const scaledViewport = page.getViewport({ scale: scale });
+      //// Set a fixed width for the canvas and adjust the scale accordingly
+      //const fixedWidth = 1200;
+      //const viewport = page.getViewport({ scale: 1 });
+      //const scale = fixedWidth / viewport.width;
+      //const scaledViewport = page.getViewport({ scale: scale });
 
-    // Prepare the canvas
-    const canvas = document.createElement("canvas");
-    canvas.classList.add("canvas");
-    container.appendChild(canvas);
-    const context = canvas.getContext("2d");
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
+      // Prepare the canvas
+      const canvas = document.createElement("canvas");
+      canvas.classList.add("canvas");
+      container.appendChild(canvas);
+      const context = canvas.getContext("2d");
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
 
-    // Render the page into the canvas context
-    const renderContext = {
-      canvasContext: context,
-      viewport: viewport,
-    };
+      // Render the page into the canvas context
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
 
-    await page.render(renderContext).promise;
-  } catch (error) {
-    throw new Error(`Error rendering page ${pageNum}: ${error.message}`);
+      await page.render(renderContext).promise;
+
+      //// Check if the content height exceeds the container's visible height
+      //if (container.scrollHeight > container.clientHeight) {
+      //  container.style.overflowY = "scroll";
+      //}
+    } catch (error) {
+      throw new Error(`Error rendering page ${pageNum}: ${error.message}`);
+    }
   }
-}
 
-function toggleVisibility(element, show) {
-  element.style.display = show ? "block" : "none";
-}
+  function toggleVisibility(element, show) {
+    element.style.display = show ? "block" : "none";
+  }

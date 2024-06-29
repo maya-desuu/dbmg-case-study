@@ -26,18 +26,25 @@ const getAllFiles = async (req, res) => {
 };
 
 const getFile = async (req, res) => {
+  const { id: fileId } = req.params;
+  console.log("req params: ", req.params);
+  console.log("req queries: ", req.queries);
   try {
-    const file = await gridFsBucket
-      .find({ filename: req.params.filename })
-      .toArray();
-    //console.log(file);
-    if (!file) {
+    // Convert fileId to ObjectId
+    const objectId = new mongoose.Types.ObjectId(fileId);
+
+    const files = await gridFsBucket.find({ _id: objectId }).toArray();
+    if (!files.length) {
       return res.status(StatusCodes.NOT_FOUND).json({ err: "File not found" });
     }
+
     // create read stream && pipe it to response
-    const downloadStream = gridFsBucket.openDownloadStreamByName(
-      req.params.filename,
-    );
+    const downloadStream = gridFsBucket.openDownloadStream(objectId);
+    downloadStream.on("error", (error) => {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message });
+    });
     downloadStream.pipe(res);
   } catch (error) {
     res
@@ -45,6 +52,25 @@ const getFile = async (req, res) => {
       .json({ error: error.message });
   }
 };
+
+//
+//const getFile = async (req, res) => {
+//  const { id: fileId } = req.params;
+//  try {
+//    const file = await gridFsBucket.find({ _id: fileId }).toArray();
+//    //console.log(file);
+//    if (!file) {
+//      return res.status(StatusCodes.NOT_FOUND).json({ err: "File not found" });
+//    }
+//    // create read stream && pipe it to response
+//    const downloadStream = gridFsBucket.openDownloadStreamByName(fileId);
+//    downloadStream.pipe(res);
+//  } catch (error) {
+//    res
+//      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+//      .json({ error: error.message });
+//  }
+//};
 
 const handleFileUpload = (req, res) => {
   try {
