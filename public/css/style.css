@@ -148,7 +148,7 @@ nav>ul {
 
 #school-picture {
   border-radius: 24px;
-  border-style: 3px solid;
+  /*border-style: 3px solid;*/
   width: 900px;
   height: auto;
   border: none;
@@ -213,6 +213,8 @@ FOR ABOUT PAGE
   font-size: xx-large;
   font-weight: bold;
 }
+
+/* register and login */
 
 form {
   background-color: #4f9b3d;
@@ -344,9 +346,17 @@ input::placeholder {
 .se-container {
   font-size: 1.5rem;
   flex-direction: row;
-  padding-left: 35px;
-  justify-content: flex-start;
+  padding: 0 35px 0 35px;
+  justify-content: space-between;
   margin-top: 27px;
+}
+
+.a-z {
+  font-weight: bolder;
+  font-size: 2rem;
+  border: 4px dotted #4f9b3d;
+  border-radius: 5px;
+  padding: 8px;
 }
 
 #se {
@@ -364,43 +374,58 @@ input::placeholder {
   outline: none;
 }
 
-.files-container {
-  margin-top: 27px;
+.article-container {
+  flex-wrap: wrap;
+  margin-top: 90px;
+  margin-bottom: 60px;
   gap: 30px;
   /*padding: 0 20px 0 20px;*/
   flex-direction: row;
 }
 
-.file-item {
+.article-info {
+  background-color: #efffdc;
   border: 1px solid #4f9b3d;
   font-size: 1.2rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   border: 3px solid #4f9b3d;
-  cursor: pointer;
   padding: 10px;
-  height: 250px;
   width: 900px;
+  height: 100px;
+  position: relative;
 }
 
-.file-item:hover {
-  background-color: #f0f0f0;
+.file-name {
+  background-color: #efffdc;
+  cursor: pointer;
 }
 
-.file-content {
-  display: none;
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
+.file-name:hover {
+  display: inline-block;
+  border-bottom: 2px solid green;
 }
 
-/*.loading-indicator{*/
-/*  margin: auto;*/
-/*  font-size: 2rem;*/
+.book-icon ion-icon {
+  background-color: #efffdc;
+  color: green;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 40px;
+  padding: 20px;
+}
+
+/*.file-content {*/
+/*  display: none;*/
+/*  margin-top: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  padding: 10px;*/
 /*}*/
 
 .loading-indicator {
   /*display: none; */
+  background: none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -441,4 +466,12 @@ footer {
 
 #copyright {
   color: gray;
+}
+
+.not-found {
+  margin: auto;
+}
+
+.por-o-por-link {
+  margin-top: 10px;
 }

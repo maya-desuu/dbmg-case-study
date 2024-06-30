@@ -14,21 +14,16 @@ const storage = new GridFsStorage({
   },
 });
 
-const allowedMimeTypes = [
-  //"application/msword", // .doc
-  //"application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
-  "application/pdf", // .pdf
-];
-
+// filtering cause pdfjs only supports pdf obv
 const fileFilter = (req, file, cb) => {
-  if (allowedMimeTypes.includes(file.mimetype)) {
+  if (file.mimetype.includes("application/pdf")) {
     cb(null, true);
   } else {
-    cb(new Error("Only .doc, .docx, and .pdf files are allowed!"), false);
+    cb(new Error("Only pdf files are allowed!"), false);
   }
 };
 
-const upload = multer({ storage, fileFilter }).array("files", 200); // allow 200 files
+const upload = multer({ storage, fileFilter }).array("files", 200); // allow upto 200 files on upload
 
 // WILL USE IF THE NEED TO HASH THE FILENAME ARISES
 //const folderStorage = new GridFsStorage({

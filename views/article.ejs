@@ -6,16 +6,22 @@
     <%- include('./partials/nav.ejs') %>
 
     <div class="se-container content">
+      <div class="a-z">A-Z DATABASES</div>
+      <div>
       <label for="se" id="se-label"></label>
       <input type="text" name="se" id="se" placeholder="Search Article....">
+      </div>
     </div>
 
-    <div class="files-container content">
-      <!-- file items will appear here --> 
+    <div class="article-container content">
+      <!-- article info will appear here --> 
+      <div class="article-preview">
+      </div>
+      <div class=".no-files-found"></div>
     </div>
 
     <div class="loading-indicator">
-      <img id="loading-gif" src="../images/loading.gif" alt="Loading..."/>
+      <img id="loading-gif" src="./images/loading.gif" alt="Loading..."/>
     </div>
 
     <!--<%- include('./partials/footer.ejs') %>-->
@@ -24,7 +30,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.worker.min.js"></script>
     <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>-->
-    <script type="module" src="./js/article.mjs"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="./js/article.js"></script>
   </body>
 </html>
 

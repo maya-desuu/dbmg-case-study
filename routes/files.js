@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const upload = require("../admin/uploadStorage");
+const upload = require("../configs/uploadStorage");
 const {
   handleFileUpload,
   getFile,

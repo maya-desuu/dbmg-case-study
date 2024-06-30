@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       //fileContent.id = `content-${file.filename}`;
       //fileItem.appendChild(fileContent);
 
+      const articleInfo = document.createElement("div");
+      articleInfo.classList.add("article-info");
+
+
       fileItem.addEventListener("click", () => {
         showFileContents(file._id);
       });

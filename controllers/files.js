@@ -27,8 +27,8 @@ const getAllFiles = async (req, res) => {
 
 const getFile = async (req, res) => {
   const { id: fileId } = req.params;
-  console.log("req params: ", req.params);
-  console.log("req queries: ", req.queries);
+  console.log("get file params: ", req.params);
+
   try {
     // Convert fileId to ObjectId
     const objectId = new mongoose.Types.ObjectId(fileId);
@@ -45,6 +45,7 @@ const getFile = async (req, res) => {
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: error.message });
     });
+
     downloadStream.pipe(res);
   } catch (error) {
     res
@@ -53,31 +54,13 @@ const getFile = async (req, res) => {
   }
 };
 
-//
-//const getFile = async (req, res) => {
-//  const { id: fileId } = req.params;
-//  try {
-//    const file = await gridFsBucket.find({ _id: fileId }).toArray();
-//    //console.log(file);
-//    if (!file) {
-//      return res.status(StatusCodes.NOT_FOUND).json({ err: "File not found" });
-//    }
-//    // create read stream && pipe it to response
-//    const downloadStream = gridFsBucket.openDownloadStreamByName(fileId);
-//    downloadStream.pipe(res);
-//  } catch (error) {
-//    res
-//      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-//      .json({ error: error.message });
-//  }
-//};
-
 const handleFileUpload = (req, res) => {
+  console.log(req.files);
   try {
     if (!req.files || req.files.length === 0) {
       throw new Error("No files uploaded");
     }
-    res.status(StatusCodes.CREATED).send({ file: req.file }); // 201
+    res.status(StatusCodes.CREATED).send({ file: req.files }); // 201
   } catch (error) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR) // 500
