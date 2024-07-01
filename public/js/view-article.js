@@ -2,53 +2,38 @@ const loadingIndicator = document.querySelector(".loading-indicator");
 
 const errorHandler = (error) => {
   console.error("Error occurred:", error);
-  console.error("Error message:", error.message);
-  console.error("Error response:", error.response);
-  console.error("Error request:", error.request);
 
   if (error.response) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
     const { status, data } = error.response;
-    console.error("Response status:", status);
-    console.error("Response data:", data);
+    console.error(`Status: ${status}`);
+    console.error(`Data:`, data);
 
     if (status === 401) {
-      loadingIndicator.style.display = "none";
-      toastr.error("Unauthorized access.", "Error");
-      localStorage.removeItem("token");
+      // Handle unauthorized errors
+      toastr.error(data.message, data.error);
+      // Optionally, redirect to login page or clear token
+      // localStorage.removeItem('token');
+      // window.location.href = '/login';
     } else {
-      toastr.error(data.msg || "An error occurred", "Error");
+      // Handle other errors
+      toastr.error(data.message || "An error occurred", "Error");
     }
   } else if (error.request) {
-    loadingIndicator.style.display = "none";
-    toastr.error("No response from server. Please try again later.", "Error");
+    // The request was made but no response was received
+    console.error("No response received:", error.request);
+    toastr.error(
+      "No response from server. Please try again later.",
+      "Network Error",
+    );
   } else {
-    loadingIndicator.style.display = "none";
-    toastr.error("An unexpected error occurred.", "Error");
+    // Something happened in setting up the request that triggered an Error
+    console.error("Error:", error.message);
+    toastr.info("You need to create an account or login first.", "Info");
   }
 };
 
-//const errorHandler = (error) => {
-//  console.error("Error occurred:", error.message);
-//
-//  if (error.response) {
-//    const { status, data } = error.response;
-//    if (status === 401) {
-//      // Handle unauthorized access
-//      loadingIndicator.style.display = "none";
-//      toastr.error("Unauthorized access.", "Error");
-//      localStorage.removeItem("token");
-//    } else {
-//      toastr.error(data.msg, "Error");
-//    }
-//  } else if (error.request) {
-//    loadingIndicator.style.display = "none";
-//    toastr.error("No response from server. Please try again later.", "Error");
-//  } else {
-//    loadingIndicator.style.display = "none";
-//    toastr.error("An unexpected error occurred.", "Error");
-//  }
-//};
-//
 document.addEventListener("DOMContentLoaded", async () => {
   // get id val in url
   const urlParams = new URLSearchParams(window.location.search);

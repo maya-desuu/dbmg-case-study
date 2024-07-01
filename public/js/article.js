@@ -79,6 +79,7 @@ function handleSearch() {
   displayFiles(filteredFiles);
 }
 
+// cool toggler
 function toggleVisibility(element, isVisible) {
   element.style.display = isVisible ? "block" : "none";
 }

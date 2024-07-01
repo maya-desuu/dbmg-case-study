@@ -10,8 +10,6 @@ const {
   viewArticle,
 } = require("../controllers/pages");
 
-const authentication = require("../middlewares/authentication");
-
 router.get("/", registerPage);
 router.get("/login", loginPage);
 router.get("/home", homePage);

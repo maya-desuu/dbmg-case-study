@@ -40,62 +40,22 @@ const errorHandler = (error) => {
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   // input values
   const formData = {
     name: nameInput.value,
     email: emailInput.value,
     password: passwordInput.value,
   };
+
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
     console.log(data);
     const { token } = data;
     localStorage.setItem("token", token);
 
-    // Instead of window.location.href, call a function to handle redirection
-    redirectToHome(token);
-  } catch (error) {
-    // Handle login error
-    console.error("Login error:", error);
-  }
-});
-
-async function redirectToHome(token) {
-  try {
-    // Make an authenticated request to /home
-    const response = await axios.get("/home", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    // If the request is successful, redirect to /home
     window.location.href = "/home";
   } catch (error) {
-    // Handle any errors
-    console.error("Error redirecting to home:", error);
-    // You might want to show an error message to the user here
+    errorHandler(error);
   }
-}
-
-//form.addEventListener("submit", async (e) => {
-//  e.preventDefault();
-//
-//  // input values
-//  const formData = {
-//    name: nameInput.value,
-//    email: emailInput.value,
-//    password: passwordInput.value,
-//  };
-//
-//  try {
-//    const { data } = await axios.post("/api/v1/auth/login", formData);
-//    console.log(data);
-//    const { token } = data;
-//    localStorage.setItem("token", token);
-//
-//    window.location.href = "/home";
-//  } catch (error) {
-//    errorHandler(error);
-//  }
-//});
+});
