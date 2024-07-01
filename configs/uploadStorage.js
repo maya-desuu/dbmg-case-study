@@ -1,13 +1,27 @@
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
 //const crypto = require("crypto");
-//const path = require("path");
+const path = require("path");
+
+//const storage = new GridFsStorage({
+//  url: process.env.MONGO_URI,
+//  file: (req, file) => {
+//    return {
+//      filename: file.originalname,
+//      bucketName: "uploads",
+//      mimetype: file.mimetype,
+//    };
+//  },
+//});
 
 const storage = new GridFsStorage({
   url: process.env.MONGO_URI,
   file: (req, file) => {
+    // Get the folder path from the request, or use a default
+    const folderPath = req.body.folderPath || "default_folder";
+
     return {
-      filename: file.originalname,
+      filename: path.join(folderPath, file.originalname),
       bucketName: "uploads",
       mimetype: file.mimetype,
     };
