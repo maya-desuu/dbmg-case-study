@@ -1,5 +1,54 @@
 const loadingIndicator = document.querySelector(".loading-indicator");
 
+const errorHandler = (error) => {
+  console.error("Error occurred:", error);
+  console.error("Error message:", error.message);
+  console.error("Error response:", error.response);
+  console.error("Error request:", error.request);
+
+  if (error.response) {
+    const { status, data } = error.response;
+    console.error("Response status:", status);
+    console.error("Response data:", data);
+
+    if (status === 401) {
+      loadingIndicator.style.display = "none";
+      toastr.error("Unauthorized access.", "Error");
+      localStorage.removeItem("token");
+    } else {
+      toastr.error(data.msg || "An error occurred", "Error");
+    }
+  } else if (error.request) {
+    loadingIndicator.style.display = "none";
+    toastr.error("No response from server. Please try again later.", "Error");
+  } else {
+    loadingIndicator.style.display = "none";
+    toastr.error("An unexpected error occurred.", "Error");
+  }
+};
+
+//const errorHandler = (error) => {
+//  console.error("Error occurred:", error.message);
+//
+//  if (error.response) {
+//    const { status, data } = error.response;
+//    if (status === 401) {
+//      // Handle unauthorized access
+//      loadingIndicator.style.display = "none";
+//      toastr.error("Unauthorized access.", "Error");
+//      localStorage.removeItem("token");
+//    } else {
+//      toastr.error(data.msg, "Error");
+//    }
+//  } else if (error.request) {
+//    loadingIndicator.style.display = "none";
+//    toastr.error("No response from server. Please try again later.", "Error");
+//  } else {
+//    loadingIndicator.style.display = "none";
+//    toastr.error("An unexpected error occurred.", "Error");
+//  }
+//};
+//
 document.addEventListener("DOMContentLoaded", async () => {
   // get id val in url
   const urlParams = new URLSearchParams(window.location.search);
@@ -23,16 +72,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
     } catch (error) {
-      console.error("Error fetching or rendering file contents:", error);
-      alert("Failed to render PDF contents. Please try again later.");
+      errorHandler(error);
     }
   }
 });
 
 async function fetchFile(fileId) {
+  const token = localStorage.getItem("token");
+  console.log(token);
   try {
     const response = await axios.get(`/api/v1/files/${fileId}`, {
       responseType: "arraybuffer",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return new Uint8Array(response.data);
   } catch (error) {
@@ -72,3 +125,12 @@ async function renderPage(pdf, pageNum, container) {
     throw new Error(`Error rendering page ${pageNum}: ${error.message}`);
   }
 }
+
+// configs for toastr
+toastr.options = {
+  positionClass: "toast-right-middle",
+  preventDuplicates: true,
+  showDuration: "300",
+  hideDuration: "1000",
+  timeOut: "2500",
+};

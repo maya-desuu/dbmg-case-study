@@ -51,7 +51,8 @@ form.addEventListener("submit", async (e) => {
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
     console.log(data);
-    localStorage.setItem("data", data);
+    const { token } = data;
+    localStorage.setItem("token", token);
 
     //await axios.get("/home/", {
     //  headers: { Authorization: `Bearer ${data.token}` },
