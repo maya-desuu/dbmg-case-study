@@ -11,7 +11,6 @@ function initializeApp() {
   articleContainer.innerHTML = "";
   searchInput.value = "";
 
-  // Hide loading indicator once DOM is loaded
   toggleVisibility(loadingIndicator, false);
 
   // Fetch files and set up event listeners
@@ -72,11 +71,30 @@ function displayFiles(files) {
 }
 
 function handleSearch() {
-  const query = searchInput.value.toLowerCase();
-  const filteredFiles = window.allFiles.filter((file) =>
-    file.filename.toLowerCase().includes(query),
-  );
-  displayFiles(filteredFiles);
+  let query = searchInput.value.trim().toLowerCase();
+
+  // If the search input is empty, display all files
+  if (query === "") {
+    displayFiles(window.allFiles);
+    return;
+  }
+
+  // Escape special characters in the query to safely use it in a RegExp
+  query = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  try {
+    const regex = new RegExp(query, "i"); // "i" flag for case-insensitive search
+
+    const filteredFiles = window.allFiles.filter((file) =>
+      regex.test(file.filename.toLowerCase()),
+    );
+
+    // Limit search results to 6 files
+    displayFiles(filteredFiles.slice(0, 6));
+  } catch (error) {
+    console.error("Invalid regular expression:", error);
+    displayFiles([]);
+  }
 }
 
 // cool toggler
