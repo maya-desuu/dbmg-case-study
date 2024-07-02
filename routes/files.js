@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const authentication = require("../middlewares/authentication");
-const upload = require("../configs/uploadStorage");
+const upload = require("../services/uploadStorage");
 const {
   handleFileUpload,
   getFile,

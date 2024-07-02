@@ -9,6 +9,7 @@ const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const otpService = require("../services/otp");
 
+// Validate user input against schema
 const validateUserInput = async (req, res) => {
   const newUser = new User(req.body);
   try {
@@ -19,6 +20,7 @@ const validateUserInput = async (req, res) => {
   }
 };
 
+// Initiate registration process by generating OTP and sending it
 const initiateRegistration = async (req, res) => {
   const { email } = req.body;
 
@@ -42,6 +44,7 @@ const verifyOTP = async (req, res) => {
       return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid OTP" });
     }
 
+    // Generate a temporary token and store it globally
     const tempToken = generateTempToken();
     global.tempTokens = global.tempTokens || {};
     global.tempTokens[tempToken] = email;
@@ -57,9 +60,11 @@ const verifyOTP = async (req, res) => {
   }
 };
 
+// Complete registration process using the temporary token and user data
 const completeRegistration = async (req, res) => {
   const { tempToken, ...userData } = req.body;
 
+  // Check if the temporary token is valid and retrieve associated email
   if (!global.tempTokens || !global.tempTokens[tempToken]) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
@@ -70,14 +75,20 @@ const completeRegistration = async (req, res) => {
   delete global.tempTokens[tempToken];
 
   try {
+    // Ensure the email from userData matches the verified email
     if (email !== userData.email) {
       return res
         .status(StatusCodes.BAD_REQUEST)
         .json({ msg: "Email mismatch" });
     }
 
+    // Create the user in the database
     const user = await User.create(userData);
-    const token = user.createJWT();
+
+    // Generate JWT token for authentication
+    //const token = user.createJWT();
+
+    // Respond with user details and token
     res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
   } catch (error) {
     console.error(error);
@@ -87,52 +98,49 @@ const completeRegistration = async (req, res) => {
   }
 };
 
+// Generate a temporary token for registration process
 function generateTempToken() {
   return Math.random().toString(36).substr(2, 10);
 }
 
-//const register = async (req, res) => {
-//  const user = await User.create(req.body);
-//  //const token = user.createJWT();
-//  res.status(StatusCodes.CREATED).json({ user: { name: user.name } });
-//};
-
+// Login endpoint for existing users
 const login = async (req, res) => {
   const { name, email, password } = req.body;
 
+  // Validate presence of required fields
   if (!email || !password || !name) {
     throw new BadRequestError("Please Provide Email, Name, And Password");
   }
 
-  // check if user exists
+  // Check if user exists in the database
   const user = await User.findOne({ email });
   if (!user) {
     throw new UnauthenticatedError("User Not Found");
   }
 
-  // compare password
+  // Compare password with hashed password in the database
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
-  //console.log(user.email);
-  //console.log(process.env.ADMIN_EMAIL);
-
+  // Check if the user is an admin based on email (not yet implemented, so no usecase as of now)
   let isAdmin = false;
   if (user.email === process.env.ADMIN_EMAIL) {
     isAdmin = true;
   }
 
-  token = user.createJWT();
+  // Generate JWT token for user authentication
+  const token = user.createJWT();
+
+  // Respond with user details and token
   res
     .status(StatusCodes.OK)
-    .json({ user: { name: user.name, isAdmin: isAdmin }, token });
+    .json({ user: { name: user.name, isAdmin }, token });
 };
 
 module.exports = {
   validateUserInput,
-  //register,
   initiateRegistration,
   verifyOTP,
   completeRegistration,
