@@ -214,6 +214,44 @@ FOR ABOUT PAGE
   font-weight: bold;
 }
 
+/* ACCOUNT PAGE */
+.account-container {
+  flex: 1;
+  display: flex;
+  padding: 40px;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  flex-direction: column;
+}
+
+.user-info-container {
+  /*border: 1px solid black;*/
+  font-size: 30px;
+  border: 1px solid black;
+  flex: 1;
+  /*display: flex;*/
+  /*justify-content: flex-start;*/
+  /*align-content: flex-start;*/
+}
+
+/*.user-name {*/
+/*font-size: 35px;*/
+/*}*/
+
+/*.btn-container {*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*  align-items: flex-end;*/
+/*  border: 1px solid black;*/
+/*}*/
+
+.logout-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  /*width: 80px;*/
+}
+
 /* register and login */
 
 form {
@@ -454,7 +492,7 @@ input::placeholder {
   margin-top: 54px;
   padding: 0 54px 0 54px;
   display: block;
-  width: 50%;
+  width: 60%;
   border: 1px solid #ccc;
 }
 

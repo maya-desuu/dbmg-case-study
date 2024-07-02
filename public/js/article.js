@@ -79,18 +79,18 @@ function handleSearch() {
     return;
   }
 
-  // Escape special characters in the query to safely use it in a RegExp
+  // Escape special characters in the query
   query = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
   try {
-    const regex = new RegExp(query, "i"); // "i" flag for case-insensitive search
+    const regex = new RegExp(query, "i");
 
     const filteredFiles = window.allFiles.filter((file) =>
       regex.test(file.filename.toLowerCase()),
     );
 
     // Limit search results to 6 files
-    displayFiles(filteredFiles.slice(0, 6));
+    displayFiles(filteredFiles.slice(0, 10));
   } catch (error) {
     console.error("Invalid regular expression:", error);
     displayFiles([]);

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const emailValidator = require("email-validator");
 require("dotenv").config();
 
 const UserSchema = new mongoose.Schema({
@@ -13,15 +12,11 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "Please provide an email"],
-    minlength: 15,
-    maxlength: 55,
-    validate: {
-      validator: function (email) {
-        return emailValidator.validate(email);
-      },
-      message: "Invalid email format",
-    },
+    required: [true, "Please provide email"],
+    match: [
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      "Please provide a valid email",
+    ],
     unique: true,
   },
   studentNumber: {
@@ -40,6 +35,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password"],
     minlength: 8,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
 });
 

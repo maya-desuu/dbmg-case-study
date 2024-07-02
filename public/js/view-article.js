@@ -4,31 +4,23 @@ const errorHandler = (error) => {
   console.error("Error occurred:", error);
 
   if (error.response) {
-    // The request was made and the server responded with a status code
-    // that falls out of the range of 2xx
     const { status, data } = error.response;
     console.error(`Status: ${status}`);
     console.error(`Data:`, data);
 
     if (status === 401) {
-      // Handle unauthorized errors
       toastr.error(data.message, data.error);
-      // Optionally, redirect to login page or clear token
-      // localStorage.removeItem('token');
-      // window.location.href = '/login';
+      localStorage.removeItem("token");
     } else {
-      // Handle other errors
       toastr.error(data.message || "An error occurred", "Error");
     }
   } else if (error.request) {
-    // The request was made but no response was received
     console.error("No response received:", error.request);
     toastr.error(
       "No response from server. Please try again later.",
       "Network Error",
     );
   } else {
-    // Something happened in setting up the request that triggered an Error
     console.error("Error:", error.message);
     toastr.info("You need to create an account or login first.", "Info");
   }
@@ -92,7 +84,7 @@ async function renderPage(pdf, pageNum, container) {
   try {
     const page = await pdf.getPage(pageNum);
 
-    const scale = 2; // higher scale === higher resolution (tho the page gets laggy around 2.5+)
+    const scale = 2; // higher scale === higher resolution (tho the page gets laggy around 2.3+)
     const viewport = page.getViewport({ scale: scale });
 
     // prepare canvas

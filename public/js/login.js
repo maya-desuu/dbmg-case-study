@@ -50,9 +50,14 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
-    console.log(data);
-    const { token } = data;
+    const { token, user } = data;
+    console.log(user);
+    console.log(token);
     localStorage.setItem("token", token);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ name: user.name, isAdmin: user.isAdmin }),
+    );
 
     window.location.href = "/home";
   } catch (error) {

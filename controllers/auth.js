@@ -28,18 +28,18 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
-  // check if admin
+  //console.log(user.email);
+  //console.log(process.env.ADMIN_EMAIL);
+
   let isAdmin = false;
-  if (user._id.toString() === process.env.ADMIN_ID) {
+  if (user.email === process.env.ADMIN_EMAIL) {
     isAdmin = true;
   }
 
   token = user.createJWT();
-  if (token) {
-    res
-      .status(StatusCodes.OK)
-      .json({ user: { name: user.name, isAdmin }, token });
-  }
+  res
+    .status(StatusCodes.OK)
+    .json({ user: { name: user.name, isAdmin: isAdmin }, token });
 };
 
 module.exports = {
