@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include('./partials/head.ejs') %>
+  <body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <div class="otp-container">
+      <div class="otp-msg">You're almost done!</div>
+      <div class="otp-msg"><!--dynamic msg will appear here--></div>
+      <div>➜  Enter code:</div>
+
+    <div class="otp-container">
+      <input type="text" maxlength="1" class="otp-input" id="otp-1">
+      <input type="text" maxlength="1" class="otp-input" id="otp-2">
+      <input type="text" maxlength="1" class="otp-input" id="otp-3">
+      <input type="text" maxlength="1" class="otp-input" id="otp-4">
+      <input type="text" maxlength="1" class="otp-input" id="otp-5">
+      <input type="text" maxlength="1" class="otp-input" id="otp-6">
+    </div>
+
+    <!--<%- include('./partials/footer.ejs') %>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="./js/login.js"></script>
+
+  </body>
+
+</html>
+
+

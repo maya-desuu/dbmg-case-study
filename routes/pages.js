@@ -7,7 +7,8 @@ const {
   aboutPage,
   accountPage,
   articlePage,
-  viewArticle,
+  emailVerificationPage,
+  viewArticlePage,
 } = require("../controllers/pages");
 
 router.get("/", registerPage);
@@ -16,6 +17,7 @@ router.get("/home", homePage);
 router.get("/about", aboutPage);
 router.get("/account", accountPage);
 router.get("/article", articlePage);
-router.get("/view-article", viewArticle);
+router.get("/view-article", viewArticlePage);
+router.get("/email-verification", emailVerificationPage);
 
 module.exports = router;

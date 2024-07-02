@@ -3,6 +3,17 @@ require("dotenv").config();
 const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
+const validateUserInput = async (req, res) => {
+  const newUser = new User(req.body);
+
+  try {
+    await newUser.validate(); // Validate input against the schema
+    res.status(StatusCodes.OK).json({ message: "Input is valid." });
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+  }
+};
+
 const register = async (req, res) => {
   const user = await User.create(req.body);
   const token = user.createJWT();
@@ -43,6 +54,7 @@ const login = async (req, res) => {
 };
 
 module.exports = {
+  validateUserInput,
   register,
   login,
 };

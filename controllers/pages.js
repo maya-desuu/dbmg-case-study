@@ -24,8 +24,12 @@ const accountPage = (req, res) => {
   res.render("account", { title: "Account" });
 };
 
-const viewArticle = async (req, res) => {
+const viewArticlePage = async (req, res) => {
   res.render("view-article", { title: "View Article" });
+};
+
+const emailVerificationPage = async (req, res) => {
+  res.render("email-verification", { title: "Email Verification" });
 };
 
 module.exports = {
@@ -34,6 +38,7 @@ module.exports = {
   homePage,
   accountPage,
   articlePage,
-  viewArticle,
+  viewArticlePage,
+  emailVerificationPage,
   aboutPage,
 };
