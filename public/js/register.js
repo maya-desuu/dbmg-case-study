@@ -7,16 +7,15 @@ const passwordInput = document.querySelector("#password-input");
 const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
 //clearing input values
-document.addEventListener("DOMContentLoaded", function () {
-  nameInput.value = "";
-  emailInput.value = "";
-  studentNumberInput.value = "";
-  yearAndSectionInput.value = "";
-  passwordInput.value = "";
-  confirmPasswordInput.value = "";
-});
+//document.addEventListener("DOMContentLoaded", function () {
+//  nameInput.value = "";
+//  emailInput.value = "";
+//  studentNumberInput.value = "";
+//  yearAndSectionInput.value = "";
+//  passwordInput.value = "";
+//  confirmPasswordInput.value = "";
+//});
 
-// submitting the regist form
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -30,33 +29,26 @@ form.addEventListener("submit", async (e) => {
     confirmPassword: confirmPasswordInput.value,
   };
 
-  // validate input (this will not save the data to the db yet, not after the otp)
-  await validateUserInput(formData);
-
-  //const secretKey = await getSecretKey();
-  // Get temp secret key from server
-  const secretKey = await getTemporaryKey();
-
-  // enc form data using the secret key
-  const encrypted = encryptFormData(formData, secretKey);
-  console.log("Encrypted Data: ", encrypted);
-
-  // save the encrypted data to local storage
-  localStorage.setItem("encFormData", encrypted);
-
-  // if successful, redirect to the OTP verification page
-  window.location.href = "./email-verification";
-});
-
-const getTemporaryKey = async () => {
   try {
-    const response = await axios.get("api/v1/get-temp-key");
-    const { tempKey } = response.data;
-    return tempKey;
+    // validate user input
+    await validateUserInput(formData);
+
+    // store form input temporarily
+    const token = await storeTmpFormData(formData);
+
+    if (!token) {
+      throw new Error("Failed to receive token from server");
+    }
+
+    localStorage.setItem("formDataToken", token);
+
+    // redirect to otp page
+    window.location.href = "./email-verification";
   } catch (error) {
-    console.log(error);
+    console.error("Error in form submission:", error.message);
+    //toastr.error(error.message, "Error");
   }
-};
+});
 
 const validateUserInput = async (formData) => {
   try {
@@ -64,71 +56,115 @@ const validateUserInput = async (formData) => {
       "api/v1/auth/validate-user-input",
       formData,
     );
-    console.log("message: ", data);
+    console.log("Validation message:", data);
+    return data;
   } catch (error) {
-    console.log("error: ", error);
+    console.error(
+      "Validation error:",
+      error.response?.data?.error || error.message,
+    );
+    toastr.error("Invalid credentials. Please try again.", "Error");
+    //toastr.error(
+    //  error.response?.data?.error || "Invalid credentials. Please try again.",
+    //  "Error",
+    //);
+    throw error;
   }
 };
 
-const encryptFormData = (formData, secretKey) => {
-  const encrypted = CryptoJS.AES.encrypt(
-    JSON.stringify(formData),
-    secretKey,
-  ).toString();
-  return encrypted;
+const storeTmpFormData = async (formData) => {
+  try {
+    const { data } = await axios.post("api/v1/tmp-form-data", formData);
+    if (!data.token) {
+      throw new Error("Token not received from server");
+    }
+    return data.token;
+  } catch (error) {
+    console.error(
+      "Error storing temporary form data:",
+      error.response?.data?.error || error.message,
+    );
+    toastr.error(
+      error.response?.data?.error ||
+        "Failed to store form data. Please try again.",
+      "Storage Error",
+    );
+    throw error;
+  }
 };
 
-// notif library config
+// toastr config
 toastr.options = {
   positionClass: "toast-right-middle",
   preventDuplicates: true,
   showDuration: "300",
   hideDuration: "1000",
-  timeOut: "2500",
+  timeOut: "3000",
 };
 
-// WILL USE AGAIN AFTER SENDING PROPER VALIDATION ERRS TO FE
-//const errorHandler = (error) => {
-//  console.error(`Error: ${error.message}`);
-//  console.error(`Error status: ${error.status}`);
-//  console.error(`Error data: ${error.data}`);
+//form.addEventListener("submit", async (e) => {
+//  e.preventDefault();
+//  // get input vals
+//  const formData = {
+//    name: nameInput.value,
+//    email: emailInput.value,
+//    studentNumber: studentNumberInput.value,
+//    yearAndSection: yearAndSectionInput.value,
+//    password: passwordInput.value,
+//    confirmPassword: confirmPasswordInput.value,
+//  };
 //
-//  if (error.response) {
-//    toastr.error(error.response.data.msg, "Error");
-//  } else if (error.request) {
-//    toastr.error("No response from server. Please try again later.", "Error");
-//  } else {
-//    toastr.error("An unexpected error occurred.", "Error");
+//  try {
+//    // validate user input
+//    await validateUserInput(formData);
+//
+//    // store temporary form data and get token
+//    const token = await storeTmpFormData(formData);
+//
+//    if (!token) {
+//      throw new Error("Failed to receive token from server");
+//    }
+//
+//    // store the token to local storage
+//    localStorage.setItem("formDataToken", token);
+//
+//    // redirect to OTP page
+//    window.location.href = "./email-verification";
+//  } catch (error) {
+//    console.error("Error in form submission:", error.message);
+//    // Here I should also update the UI to show the error to the user
+//  }
+//});
+//
+//const validateUserInput = async (formData) => {
+//  try {
+//    const { data } = await axios.post(
+//      "api/v1/auth/validate-user-input",
+//      formData,
+//    );
+//    console.log("Validation message:", data);
+//    return data;
+//  } catch (error) {
+//    console.error(
+//      "Validation error:",
+//      error.response?.data?.error || error.message,
+//    );
+//    throw error;
 //  }
 //};
-
-// EITHER USE THIS OR THE getTemporaryKey() function above
-//async function generateSecretKey() {
-//  const array = new Uint8Array(32);
-//  window.crypto.getRandomValues(array);
-//  const tempKey = Array.from(array, (byte) =>
-//    ("0" + byte.toString(16)).slice(-2),
-//  ).join("");
 //
-// Display the tempKey or do something with it
-//  console.log(tempKey);
-//  return tempKey;
-//}
-
+//const storeTmpFormData = async (formData) => {
 //  try {
-//    const { data } = await axios.post("/api/v1/auth/register", formData);
-//    const token = data.token;
-//    localStorage.setItem("token", token);
-//
-//    // display success messages
-//    toastr.success("Account created. Redirecting.", "Success");
-//
-//    setTimeout(() => {
-//      window.location.href = "/login";
-//    }, 2500);
-//  } catch (error) {
-//    if (error.response) {
-//      toastr.error("Invalid credentials. Please try again.", "Error");
-//      console.error(error);
+//    const { data } = await axios.post("api/v1/tmp-form-data", formData);
+//    if (!data.token) {
+//      throw new Error("Token not received from server");
 //    }
+//    return data.token;
+//  } catch (error) {
+//    console.error(
+//      "Error storing temporary form data:",
+//      error.response?.data?.error || error.message,
+//    );
+//    throw error;
 //  }
+//};

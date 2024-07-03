@@ -1,5 +1,4 @@
 //To use this in your frontend:
-//
 //Call /initiate-registration with the email.
 //Once the user receives the OTP, call /verify-otp with the email and OTP.
 //Use the returned tempToken along with the rest of the user data to call /complete-registration.
@@ -19,7 +18,7 @@ const validateUserInput = async (req, res) => {
   }
 };
 
-const initiateRegistration = async (req, res) => {
+const generateOTP = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -46,6 +45,8 @@ const verifyOTP = async (req, res) => {
     global.tempTokens = global.tempTokens || {};
     global.tempTokens[tempToken] = email;
 
+    console.log("Generated tempToken:", tempToken);
+    console.log("Global tempTokens:", global.tempTokens);
     res
       .status(StatusCodes.OK)
       .json({ msg: "OTP verified successfully", tempToken });
@@ -57,8 +58,10 @@ const verifyOTP = async (req, res) => {
   }
 };
 
-const completeRegistration = async (req, res) => {
+const register = async (req, res) => {
   const { tempToken, ...userData } = req.body;
+
+  console.log("Received tempToken:", tempToken);
 
   if (!global.tempTokens || !global.tempTokens[tempToken]) {
     return res
@@ -67,6 +70,8 @@ const completeRegistration = async (req, res) => {
   }
 
   const email = global.tempTokens[tempToken];
+
+  // delete tmp token
   delete global.tempTokens[tempToken];
 
   try {
@@ -133,8 +138,8 @@ const login = async (req, res) => {
 module.exports = {
   validateUserInput,
   //register,
-  initiateRegistration,
+  generateOTP,
   verifyOTP,
-  completeRegistration,
+  register,
   login,
 };

@@ -26,8 +26,10 @@ const generateOTP = async (email) => {
   await transporter.sendMail({
     from: process.env.COMSA_LIBRARY_EMAIL,
     to: email,
-    subject: "COMSA Research Paper Library OTP Verification",
-    html: `<h1>Your OTP for verification is: ${otp}. Use it before it expires.</h1>`,
+    subject: "COMSCI Student Research Paper Library OTP Verification",
+    html: `<h3>Your OTP for verification is: <h1>${otp}</h1></h3>
+<p>Use it before it expires.</p>
+`,
   });
 
   return otp;

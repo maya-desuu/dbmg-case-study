@@ -97,6 +97,7 @@ nav>ul {
 
 .nav-links {
   background: #4f9b3d;
+  /*cursor: pointer;*/
   color: white;
   text-decoration: none;
   font-size: 20px;
@@ -357,11 +358,15 @@ input::placeholder {
   font-family: "DM Sans", sans-serif;
   font-size: 22px;
   line-height: 1.5;
+  width: 300px;
+  height: auto;
+  /*text-indent: 5px;*/
+  /*height: 350px;*/
 }
 
-#toast-container .toast {
-  background-image: none !important;
-}
+/*#toast-container .toast {*/
+/*  background-image: none !important;*/
+/*}*/
 
 /* Individual toast styles */
 #toast-container .toast-success {

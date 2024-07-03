@@ -1,9 +1,10 @@
-function sendApiRequest() {
+async function sendApiRequest() {
   const inputs = document.querySelectorAll(".otp-input");
   const otp = Array.from(inputs)
     .map((input) => input.value)
     .join("");
   console.log("Sending API request with OTP:", otp);
+  //await getFormData()
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -25,15 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
-    //inputs.forEach((input, index) => {
-    //  input.addEventListener("input", function () {
-    //    if (this.value.length === 1) {
-    //      const nextInput = inputs[index + 1];
-    //      if (nextInput) {
-    //        nextInput.focus();
-    //      }
-    //    }
-    //  });
 
     input.addEventListener("keydown", function (e) {
       if (e.key === "Backspace") {

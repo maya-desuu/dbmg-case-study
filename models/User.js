@@ -54,10 +54,7 @@ UserSchema.virtual("confirmPassword")
 // Custom validation for password confirmation
 UserSchema.pre("validate", function (next) {
   if (this.password !== this.confirmPassword) {
-    this.invalidate(
-      "confirmPassword",
-      "Password and confirm password do not match",
-    );
+    this.invalidate("confirmPassword", "Password do not match.");
   }
   next();
 });

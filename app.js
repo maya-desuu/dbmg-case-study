@@ -1,16 +1,14 @@
 const express = require("express");
 const app = express();
+const connectDB = require("./db/connect");
+
 require("express-async-errors");
 require("dotenv").config();
-const otpGenerator = require("otp-generator");
-const nodemailer = require("nodemailer");
 const morgan = require("morgan");
 const session = require("express-session");
-//const cookieParser = require("cookie-parser");
+
 //const cors = require("cors");
 //const helmet = require("helmet");
-
-const connectDB = require("./db/connect");
 
 // template engine, parse json objects, and static files
 app.set("view engine", "ejs");
@@ -18,7 +16,6 @@ app.use(express.json());
 app.use(express.static("./public"));
 
 app.use(morgan("dev"));
-//app.use(cookieParser());
 //app.use(cors());
 //app.use(helmet())
 
@@ -26,8 +23,8 @@ app.use(morgan("dev"));
 const pageRouter = require("./routes/pages.js");
 const authRouter = require("./routes/auth.js");
 const fileRouter = require("./routes/files.js");
-const otpRouter = require("./routes/otp.js");
-const tempKeyRouter = require("./routes/tempKey.js");
+//const otpRouter = require("./routes/otp.js");
+const formData = require("./routes/formData.js");
 
 // error handler
 const notFoundMiddleWare = require("./middlewares/not-found.js");
@@ -47,8 +44,8 @@ app.use(
 app.use("/", pageRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/files", fileRouter);
-app.use("/api/v1/otp", otpRouter);
-app.use("/api/v1/get-temp-key", tempKeyRouter);
+//app.use("/api/v1/otp", otpRouter);
+app.use("/api/v1/tmp-form-data", formData);
 
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddeWare);
