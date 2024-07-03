@@ -7,24 +7,29 @@
     <%- include('./partials/header.ejs') %>
 
     <div class="otp-container">
-      <div class="otp-msg">You're almost done!</div>
-      <div class="otp-msg"><!--dynamic msg will appear here--></div>
-      <div>➜  Enter code:</div>
+      <div class="otp-content">
+        <!--<div class="otp-msg-container">-->
+          <div class="otp-msg">You're almost done registering!</div>
+          <div class="otp-msg">Weve sent blah blah<!--dynamic msg will appear here--></div>
+          <div class="otp-msg" id="otp-msg-bottom">➜  Enter code:</div>
+        <!--</div>-->
 
-    <div class="otp-container">
-      <input type="text" maxlength="1" class="otp-input" id="otp-1">
-      <input type="text" maxlength="1" class="otp-input" id="otp-2">
-      <input type="text" maxlength="1" class="otp-input" id="otp-3">
-      <input type="text" maxlength="1" class="otp-input" id="otp-4">
-      <input type="text" maxlength="1" class="otp-input" id="otp-5">
-      <input type="text" maxlength="1" class="otp-input" id="otp-6">
+        <div class="otp-input-container">
+          <input type="text" maxlength="1" class="otp-input" id="otp-1">
+          <input type="text" maxlength="1" class="otp-input" id="otp-2">
+          <input type="text" maxlength="1" class="otp-input" id="otp-3">
+          <input type="text" maxlength="1" class="otp-input" id="otp-4">
+          <input type="text" maxlength="1" class="otp-input" id="otp-5">
+          <input type="text" maxlength="1" class="otp-input" id="otp-6">
+        </div>  
+      </div>
     </div>
 
     <!--<%- include('./partials/footer.ejs') %>-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="./js/login.js"></script>
+    <script type="module" src="./js/email-verification.js"></script>
 
   </body>
 

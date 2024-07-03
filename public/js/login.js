@@ -10,34 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   passwordInput.value = "";
 });
 
-// configs for toastr
-toastr.options = {
-  positionClass: "toast-right-middle",
-  preventDuplicates: true,
-  showDuration: "300",
-  hideDuration: "1000",
-  timeOut: "2500",
-};
-
-const errorHandler = (error) => {
-  console.error("Error occurred:", error.message);
-
-  if (error.response) {
-    const { status, data } = error.response;
-    if (status === 401) {
-      // Handle unauthorized access
-      toastr.error("Unauthorized access.", "Error");
-      localStorage.removeItem("token");
-    } else {
-      toastr.error(data.msg, "Error");
-    }
-  } else if (error.request) {
-    toastr.error("No response from server. Please try again later.", "Error");
-  } else {
-    toastr.error("An unexpected error occurred.", "Error");
-  }
-};
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -64,3 +36,31 @@ form.addEventListener("submit", async (e) => {
     errorHandler(error);
   }
 });
+
+const errorHandler = (error) => {
+  console.error("Error occurred:", error.message);
+
+  if (error.response) {
+    const { status, data } = error.response;
+    if (status === 401) {
+      // Handle unauthorized access
+      toastr.error("Unauthorized access.", "Error");
+      localStorage.removeItem("token");
+    } else {
+      toastr.error(data.msg, "Error");
+    }
+  } else if (error.request) {
+    toastr.error("No response from server. Please try again later.", "Error");
+  } else {
+    toastr.error("An unexpected error occurred.", "Error");
+  }
+};
+
+// configs for toastr
+toastr.options = {
+  positionClass: "toast-right-middle",
+  preventDuplicates: true,
+  showDuration: "300",
+  hideDuration: "1000",
+  timeOut: "2500",
+};

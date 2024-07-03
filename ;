@@ -430,7 +430,7 @@ input::placeholder {
   background-color: #efffdc;
   border: 1px solid #4f9b3d;
   font-size: 1.2rem;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   border: 3px solid #4f9b3d;
   padding: 10px;
@@ -520,45 +520,17 @@ footer {
 }
 
 .otp-container {
-  flex: 1;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /*height: auto;*/
-  /*margin: auto;*/
-  /*text-align: center;*/
-}
-
-.otp-input-container {
-  display: flex;
-  gap: 20px;
-}
-
-.otp-content {
-  border: 2px solid #4f9b3d;
-  border-radius: 5px;
-  padding: 50px;
-  margin-bottom: 250px;
-}
-
-.otp-msg {
-  font-size: 20px;
-}
-
-#otp-msg-bottom {
-  margin: 20px 0 13px 0;
+  /*border: 1px solid black;*/
+  flex-direction: column;
+  gap: 10px;
 }
 
 .otp-input {
-  width: 60px;
-  height: 65px;
+  width: 40px;
+  height: 40px;
   text-align: center;
   font-size: 24px;
-  border: 1px solid #4f9b3d;
-  background-color: #efffdc;
-  /*#ccc*/
+  border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s;

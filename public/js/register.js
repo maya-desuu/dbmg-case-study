@@ -6,15 +6,15 @@ const yearAndSectionInput = document.querySelector("#year-and-section-input");
 const passwordInput = document.querySelector("#password-input");
 const confirmPasswordInput = document.querySelector("#confirm-password-input");
 
-// clearing input values
-//document.addEventListener("DOMContentLoaded", function() {
-//  nameInput.value = "";
-//  emailInput.value = "";
-//  studentNumberInput.value = "";
-//  yearAndSectionInput.value = "";
-//  passwordInput.value = "";
-//  confirmPasswordInput.value = "";
-//});
+//clearing input values
+document.addEventListener("DOMContentLoaded", function () {
+  nameInput.value = "";
+  emailInput.value = "";
+  studentNumberInput.value = "";
+  yearAndSectionInput.value = "";
+  passwordInput.value = "";
+  confirmPasswordInput.value = "";
+});
 
 // submitting the regist form
 form.addEventListener("submit", async (e) => {
