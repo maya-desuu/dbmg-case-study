@@ -541,22 +541,52 @@ footer {
   gap: 20px;
 }
 
+.otp-msg-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#display-user-email {
+  margin-top: 2px;
+}
+
+.enter-code-resend-otp {
+  margin: 35px 0 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
 .otp-content {
-  border: 2px solid #4f9b3d;
-  border-radius: 5px;
+  /*display: none;*/
+  border: 6px solid #4f9b3d;
+  border-radius: 12px;
   padding: 50px;
   margin-bottom: 250px;
 }
 
 .otp-msg {
+  display: none;
   font-size: 20px;
 }
 
-#otp-msg-bottom {
-  margin: 20px 0 13px 0;
+/*#otp-msg-bottom {*/
+/*  margin: 20px 0 13px 0;*/
+/*}*/
+
+.otp-warning-msg {
+  font-size: 18px;
+}
+
+#resendOtp {
+  display: none;
+  border: none;
+  font-size: 16px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .otp-input {
+  display: none;
   width: 60px;
   height: 65px;
   text-align: center;

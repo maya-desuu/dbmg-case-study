@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %>
+
   <body>
 
     <%- include('./partials/header.ejs') %>
 
-    <div class="login content">
-      <h1 class="form-h1">Log-in</h1>
-      <p class="form-p">Don't have an account? Register <a id="signInExistingAccount" href="/">here</a></p>
+      <div class="login content">
+        <h1 class="form-h1">Login</h1>
+        <p class="form-p">Don't have an account? Register <a id="signInExistingAccount" href="/">here</a></p>
 
-      <form class="login form">
-        <label for="name-input">Name</label>
-        <input type="text" id="name-input" name="username" required>
+        <form class="login form">
+          <label for="name-input">Name</label>
+          <input type="text" id="name-input" name="username" required>
 
-        <label for="email-input">Email</label>
-        <input type="text" id="email-input" name="email" required>
+          <label for="email-input">Email</label>
+          <input type="text" id="email-input" name="email" required>
 
-        <label for="password-input">Password</label>
-        <input type="password" id="password-input" name="password" required>
+          <label for="password-input">Password</label>
+          <input type="password" id="password-input" name="password" required>
 
-        <button id="submit" type="submit">Log-in</button>
-      </form>
+          <button id="submit" type="submit">Log-in</button>
+        </form>
 
-    <div>
+        <div>
 
-    <!--<%- include('./partials/footer.ejs') %>-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+          <!--<%- include('./partials/footer.ejs') %>-->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="./js/login.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+          <script type="module" src="./js/login.js"></script>
 
   </body>
 

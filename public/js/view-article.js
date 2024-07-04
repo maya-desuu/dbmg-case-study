@@ -16,7 +16,7 @@ const errorHandler = (error) => {
           "Authentication Error",
         );
         localStorage.removeItem("token");
-        setTimeout(() => (window.location.href = "/login"), 2000); // Redirect to login page after 2 seconds
+        setTimeout(() => (window.location.href = "/login"), 3000); // Redirect to login page after 2 seconds
         break;
       case 403:
         toastr.errorr(
@@ -76,13 +76,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (pageNum === 1) {
         loadingIndicator.style.display = "none";
       }
-      // Show progress
-      toastr.info(`Rendering page ${pageNum} of ${pdf.numPages}`, "Progress", {
-        timeOut: 1000,
-      });
     }
 
-    toastr.success("PDF loaded successfully", "Success");
+    //toastr.success("PDF loaded successfully", "Success"); // nah
   } catch (error) {
     errorHandler(error);
   }
@@ -146,16 +142,14 @@ async function renderPage(pdf, pageNum, container) {
   }
 }
 
-// Toastr configuration
+// toastr config
 toastr.options = {
+  progressBar: true,
   positionClass: "toast-right-middle",
   preventDuplicates: true,
   showDuration: "300",
-  hideDuration: "1000",
+  //hideDuration: "1000",
   timeOut: "3000",
-  extendedTimeOut: "1000",
-  closeButton: true,
-  progressBar: true,
 };
 
 //const loadingIndicator = document.querySelector(".loading-indicator");

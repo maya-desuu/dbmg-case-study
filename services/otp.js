@@ -6,7 +6,7 @@ const generateOTP = async (email) => {
   const otp = otpGenerator.generate(6, {
     digits: true,
     alphabets: false,
-    upperCase: true,
+    upperCase: false,
     specialChars: false,
   });
 

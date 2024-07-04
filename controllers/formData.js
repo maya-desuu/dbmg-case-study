@@ -39,7 +39,7 @@ const getFormData = async (req, res) => {
     }
 
     // Delete the form data from the database
-    await TmpFormData.findByIdAndDelete(formDataId);
+    //await TmpFormData.findByIdAndDelete(formDataId);
 
     console.log(formData.data);
     res.status(StatusCodes.OK).json(formData.data);

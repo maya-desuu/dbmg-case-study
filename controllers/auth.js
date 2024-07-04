@@ -1,8 +1,3 @@
-//To use this in your frontend:
-//Call /initiate-registration with the email.
-//Once the user receives the OTP, call /verify-otp with the email and OTP.
-//Use the returned tempToken along with the rest of the user data to call /complete-registration.
-
 const User = require("../models/User");
 const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
@@ -59,9 +54,11 @@ const verifyOTP = async (req, res) => {
 };
 
 const register = async (req, res) => {
+  //console.log("Received request body:", req.body);
   const { tempToken, ...userData } = req.body;
-
-  console.log("Received tempToken:", tempToken);
+  //console.log("Extracted userData:", userData);
+  //console.log("Received tempToken:", tempToken);
+  console.log("Global tempTokens:", global.tempTokens);
 
   if (!global.tempTokens || !global.tempTokens[tempToken]) {
     return res
@@ -82,8 +79,8 @@ const register = async (req, res) => {
     }
 
     const user = await User.create(userData);
-    const token = user.createJWT();
-    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+    //const token = user.createJWT() // REMOVED FOR NOW IF THERE ARE CHANGES IN THE REGIST FLOW THEN MIGHT USE THIS AGAIN
+    res.status(StatusCodes.CREATED).json({ user: { name: user.name } });
   } catch (error) {
     console.error(error);
     res
@@ -95,12 +92,6 @@ const register = async (req, res) => {
 function generateTempToken() {
   return Math.random().toString(36).substr(2, 10);
 }
-
-//const register = async (req, res) => {
-//  const user = await User.create(req.body);
-//  //const token = user.createJWT();
-//  res.status(StatusCodes.CREATED).json({ user: { name: user.name } });
-//};
 
 const login = async (req, res) => {
   const { name, email, password } = req.body;
@@ -137,7 +128,6 @@ const login = async (req, res) => {
 
 module.exports = {
   validateUserInput,
-  //register,
   generateOTP,
   verifyOTP,
   register,
