@@ -79,7 +79,7 @@ const register = async (req, res) => {
     }
 
     const user = await User.create(userData);
-    //const token = user.createJWT() // REMOVED FOR NOW IF THERE ARE CHANGES IN THE REGIST FLOW THEN MIGHT USE THIS AGAIN
+    //const token = user.createJWT() // REMOVED FOR NOW BUT IF THERE ARE CHANGES IN THE REGIST FLOW THEN MIGHT USE THIS AGAIN
     res.status(StatusCodes.CREATED).json({ user: { name: user.name } });
   } catch (error) {
     console.error(error);

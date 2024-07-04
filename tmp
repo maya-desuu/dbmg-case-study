@@ -1,0 +1,8 @@
+metadata: {
+  researchees: {
+    name1,
+    name2,
+    // so on
+  },
+  year: 2019,
+},

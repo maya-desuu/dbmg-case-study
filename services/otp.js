@@ -1,14 +1,21 @@
 const OTP = require("../models/OTP");
-const otpGenerator = require("otp-generator");
+//const otpGenerator = require("otp-generator");
 const nodemailer = require("nodemailer");
 
 const generateOTP = async (email) => {
-  const otp = otpGenerator.generate(6, {
-    digits: true,
-    alphabets: false,
-    upperCase: false,
-    specialChars: false,
-  });
+  //const otp = otpGenerator.generate(6, { // USED THIS PACKAGE FIRST BUT IT DOENST SEND ONLY NUMBERS
+  //  digits: true,
+  //  alphabets: false,
+  //  upperCase: false,
+  //  specialChars: false,
+  //});
+
+  function generateNumericOTP(length = 6) {
+    return Array.from({ length }, () => Math.floor(Math.random() * 10)).join(
+      "",
+    );
+  }
+  const otp = generateNumericOTP();
 
   await OTP.create({ email, otp });
 
