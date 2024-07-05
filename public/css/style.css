@@ -118,8 +118,8 @@ nav>ul {
 }
 
 /*
-* 
-* FOR HOME PAGE 
+*
+* FOR HOME PAGE
 *
 */
 
@@ -188,7 +188,7 @@ nav>ul {
   background-color: #efffdc;
 }
 
-/* 
+/*
 FOR ABOUT PAGE
 */
 
@@ -218,42 +218,69 @@ FOR ABOUT PAGE
 /* ACCOUNT PAGE */
 .account-container {
   flex: 1;
+  justify-content: center;
+  align-items: center;
   display: flex;
-  padding: 40px;
-  /*align-items: center;*/
-  /*justify-content: center;*/
+  /*padding: 20px;*/
+  /*margin: 20px;*/
+}
+
+.account {
+  padding: 30px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border: 6px solid #4f9b3d;
+  border-radius: 8px;
+  width: 60%;
+  height: 600px;
+  display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.user-info-container {
-  /*border: 1px solid black;*/
+.user-info {
+  display: flex;
+  justify-content: space-between;
   font-size: 30px;
-  border: 1px solid black;
-  flex: 1;
-  /*display: flex;*/
-  /*justify-content: flex-start;*/
-  /*align-content: flex-start;*/
 }
 
-/*.user-name {*/
-/*font-size: 35px;*/
-/*}*/
+.user-name {
+  font-weight: 600;
+}
 
-/*.btn-container {*/
-/*  display: flex;*/
-/*  justify-content: flex-end;*/
-/*  align-items: flex-end;*/
-/*  border: 1px solid black;*/
-/*}*/
+.admin-indicator {
+  font-weight: bold;
+  color: #4caf50;
+}
 
-.logout-btn {
+.no-content-yet {
+  flex: 1;
+  /*width: 70%;*/
+  /*height: 70%;*/
+  border: 1px solid black;
+}
+
+.logout-cont {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
-  /*width: 80px;*/
 }
 
+.logout-btn {
+  font-size: 18px;
+  background-color: #d9534f;
+  border-radius: 5px;
+  width: 100px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
+}
+
+/*                    */
 /* register and login */
+/*                    */
 
 form {
   background-color: #4f9b3d;
@@ -358,7 +385,7 @@ input::placeholder {
   font-family: "DM Sans", sans-serif;
   font-size: 22px;
   line-height: 1.5;
-  width: 300px;
+  width: 320px;
   height: auto;
   /*text-indent: 5px;*/
   /*height: 350px;*/
@@ -424,7 +451,7 @@ input::placeholder {
 
 .article-container {
   flex-wrap: wrap;
-  margin-top: 90px;
+  margin-top: 60px;
   margin-bottom: 60px;
   gap: 30px;
   /*padding: 0 20px 0 20px;*/
@@ -446,6 +473,7 @@ input::placeholder {
 
 .file-name {
   background-color: #efffdc;
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -464,7 +492,7 @@ input::placeholder {
   padding: 20px;
 }
 
-/*.file-content {*/
+/*.file-ontent {*/
 /*  display: none;*/
 /*  margin-top: 10px;*/
 /*  border: 1px solid #ccc;*/
@@ -488,8 +516,11 @@ input::placeholder {
 }
 
 .pdf-container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
   margin-bottom: 54px;
-  /*overflow-y: scroll;*/
 }
 
 .canvas {
@@ -507,7 +538,6 @@ footer {
   /*flex: 1;*/
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
-  margin-top: 54px;
   padding: 12px;
   font-size: 14px;
 }
@@ -524,6 +554,8 @@ footer {
   margin-top: 10px;
 }
 
+/* otp page */
+
 .otp-container {
   flex: 1;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -531,9 +563,6 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  /*height: auto;*/
-  /*margin: auto;*/
-  /*text-align: center;*/
 }
 
 .otp-input-container {
@@ -557,7 +586,6 @@ footer {
 }
 
 .otp-content {
-  /*display: none;*/
   border: 6px solid #4f9b3d;
   border-radius: 12px;
   padding: 50px;
@@ -574,6 +602,7 @@ footer {
 /*}*/
 
 .otp-warning-msg {
+  margin: 0 10px 40px 10px;
   font-size: 18px;
 }
 
@@ -602,3 +631,5 @@ footer {
 .otp-input:focus {
   border-color: #007bff;
 }
+
+/* RESPONSIVENESS */

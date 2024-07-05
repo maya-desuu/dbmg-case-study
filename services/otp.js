@@ -25,18 +25,16 @@ const generateOTP = async (email) => {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.COMSA_LIBRARY_EMAIL,
-      pass: process.env.COMSA_LIBRARY_PASSWORD,
+      user: process.env.COMSCI_LIBRARY_EMAIL,
+      pass: process.env.COMSCI_LIBRARY_PASSWORD,
     },
   });
 
   await transporter.sendMail({
-    from: process.env.COMSA_LIBRARY_EMAIL,
+    from: process.env.COMSSC_LIBRARY_EMAIL,
     to: email,
     subject: "COMSCI Student Research Paper Library OTP Verification",
-    html: `<h3>Your OTP for verification is: <h1>${otp}</h1></h3>
-<p>Use it before it expires.</p>
-`,
+    html: `<h3>Your OTP for verification is: <h1>${otp}</h1><br>Use it before it expires.</h3>`,
   });
 
   return otp;
@@ -51,4 +49,4 @@ const verifyOTP = async (email, otp) => {
   return true;
 };
 
-module.exports = { generateOTP, verifyOTP };
+module.exports = { generateOTP, verifyOTP }; // import to auth

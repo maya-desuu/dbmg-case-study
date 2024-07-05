@@ -59,16 +59,8 @@ const validateUserInput = async (formData) => {
     console.log("Validation message:", data);
     return data;
   } catch (error) {
-    console.error(
-      "Validation error:",
-      error.response?.data?.error || error.message,
-    );
-    toastr.error("Invalid credentials. Please try again.", "Error");
-    //toastr.error(
-    //  error.response?.data?.error || "Invalid credentials. Please try again.",
-    //  "Error",
-    //);
-    throw error;
+    console.error();
+    handleError();
   }
 };
 
@@ -80,15 +72,27 @@ const storeTmpFormData = async (formData) => {
     }
     return data.token;
   } catch (error) {
-    console.error(
-      "Error storing temporary form data:",
-      error.response?.data?.error || error.message,
-    );
-    toastr.error(
-      error.response?.data?.error ||
-        "Failed to store form data. Please try again.",
-      "Storage Error",
-    );
-    throw error;
+    handleError();
   }
+};
+
+const handleError = (error) => {
+  console.error("Error:", error);
+
+  toastr.error(
+    error.response?.data?.error ||
+      "An unexpected error occurred. Please try again.",
+    "Error",
+  );
+  throw error;
+};
+
+// toastr config
+toastr.options = {
+  progressBar: true,
+  positionClass: "toast-right-middle",
+  preventDuplicates: true,
+  showDuration: "300",
+  //hideDuration: "1000",
+  timeOut: "3000",
 };

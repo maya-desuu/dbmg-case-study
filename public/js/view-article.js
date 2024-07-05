@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function fetchFile(fileId) {
   const token = localStorage.getItem("token");
   if (!token) {
-    throw new Error("Please log in first to access files. Redirecting...");
+    throw new Error("Please log in first to access files. Redirecting.");
   }
 
   try {

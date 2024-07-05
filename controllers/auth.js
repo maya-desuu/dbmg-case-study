@@ -6,10 +6,11 @@ const otpService = require("../services/otp");
 const validateUserInput = async (req, res) => {
   const newUser = new User(req.body);
   try {
-    await newUser.validate(); // Validate input against the schema
+    await newUser.validate(); // validate input against the schema
     res.status(StatusCodes.OK).json({ message: "Input is valid." });
   } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json({ error: error.message });
+    const errors = Object.values(error.errors); // .map((err) => err.message);
+    throw new BadRequestError(errors);
   }
 };
 
@@ -33,7 +34,8 @@ const verifyOTP = async (req, res) => {
   try {
     const isValid = await otpService.verifyOTP(email, otp);
     if (!isValid) {
-      return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid OTP" });
+      throw new BadRequestError("Invalid OTP");
+      //return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid OTP" });
     }
 
     const tempToken = generateTempToken();
@@ -96,8 +98,16 @@ function generateTempToken() {
 const login = async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!email || !password || !name) {
-    throw new BadRequestError("Please Provide Email, Name, And Password");
+  switch (true) {
+    case !name:
+      throw new BadRequestError("Name is required.");
+      break;
+    case !email:
+      throw new BadRequestError("Email is required.");
+      break;
+    case !password:
+      throw new BadRequestError("Password is required.");
+      break;
   }
 
   // check if user exists
@@ -112,18 +122,18 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
-  //console.log(user.email);
-  //console.log(process.env.ADMIN_EMAIL);
+  console.log(user.email);
+  console.log(process.env.ADMIN_EMAIL);
 
-  let isAdmin = false;
+  //let isAdmin = false;
   if (user.email === process.env.ADMIN_EMAIL) {
-    isAdmin = true;
+    user.isAdmin = true;
   }
 
   token = user.createJWT();
   res
     .status(StatusCodes.OK)
-    .json({ user: { name: user.name, isAdmin: isAdmin }, token });
+    .json({ user: { name: user.name, isAdmin: user.isAdmin }, token });
 };
 
 module.exports = {

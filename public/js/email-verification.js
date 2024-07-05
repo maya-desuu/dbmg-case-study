@@ -172,9 +172,11 @@ async function handleRegistration(otp) {
     const { data } = await axios.post("/api/v1/auth/register", verifyData);
     console.log("Registration successful:", data);
 
+    localStorage.removeItem("formDataToken"); // remove the form data for security
+
     toastr.success("Registration successful! Redirecting.", "Success");
     setTimeout(() => {
-      window.location.href = "/login"; // Redirect to home
+      window.location.href = "/login"; // Redirect to login
     }, 3000);
   } catch (error) {
     console.error("Registration failed:", error);
