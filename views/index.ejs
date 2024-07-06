@@ -2,25 +2,28 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 
-<body>
+  <body>
 
-  <%- include('./partials/header.ejs') %>
-  <div class="register content">
-      <h1 class="form-h1">Registration</h1>
-      <p class="form-p">Already have an account? Login <a id="signInExistingAccount" href="/login">here</a></p>
-      
-      <form class="form">
+    <%- include('./partials/header.ejs') %>
+      <div class="register content">
+        <h1 class="form-h1">Registration</h1>
+        <p class="form-p">Already have an account? Login <a id="signInExistingAccount" href="/login">here</a></p>
+
+        <form class="register-form">
           <label for="name-input">Full Name</label>
-          <input type="text" id="name-input" name="name" required minlength="8" maxlength="55" placeholder="Dela Cruz, J. Juan">
+          <input type="text" id="name-input" name="name" required minlength="8" maxlength="55"
+            placeholder="Dela Cruz, J. Juan">
 
           <label id="email-label" for="email-input">Email</label>
           <input type="email" id="email-input" name="email" required placeholder="example@gmail.com">
 
           <label for="student-number-input">Student Number</label>
-          <input type="text" id="student-number-input" name="studentNumber" required minlength="10" maxlength="10" placeholder="135-09030M">
+          <input type="text" id="student-number-input" name="studentNumber" required minlength="10" maxlength="10"
+            placeholder="135-09030M">
 
           <label for="year-and-section-input">Year & Section</label>
-          <input type="text" id="year-and-section-input" name="yearAndSection" required minlength="7" maxlength="7" placeholder="BSCS-1C">
+          <input type="text" id="year-and-section-input" name="yearAndSection" required minlength="7" maxlength="7"
+            placeholder="BSCS-1C">
 
           <label for="password-input">Password</label>
           <input type="password" id="password-input" name="password" required minlength="8">
@@ -29,20 +32,21 @@
           <input type="password" id="confirm-password-input" name="confirmPassword" required minlength="8">
 
           <button id="submit" type="submit">Register</button>
-      </form>
+        </form>
 
 
-      <%- include('./partials/footer.ejs') %>
-  </div>
+        <!--<%- include('./partials/footer.ejs') %>-->
+      </div>
 
-  <!-- deps and cdns for toastr --> 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+      <!-- deps and cdns for toastr -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 
-  <script type="module" src="./js/register.js"></script>     
-  
-</body>
+      <script type="module" src="./js/register.js"></script>
+
+  </body>
 
 </html>

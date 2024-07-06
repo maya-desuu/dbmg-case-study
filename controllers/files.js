@@ -55,7 +55,7 @@ const getFile = async (req, res) => {
 };
 
 const handleFileUpload = (req, res) => {
-  console.log(req.files);
+  console.log();
   try {
     if (!req.files || req.files.length === 0) {
       throw new Error("No files uploaded");

@@ -3,8 +3,8 @@
     <div class="logo-container">
       <img id="logo" src="./images/logo.png" alt="logo">
       <div>
-        <h1 id="logo-name">COMSCI</h1>
-        <h1 id="logo-name">RESEARCH PAPER LIBRARY</h1>
+        <h1 id="logo-name">CSS</h1>
+        <h1 id="logo-name">Research Document Archive</h1>
       </div>
     </div>
   </a>
@@ -12,19 +12,18 @@
 </header>
 
 <script>
-<!-- make the logo anchor tag not work for register and login page -->
-  document.addEventListener('DOMContentLoaded', function() {
+  <!-- make the logo anchor tag not work for register and login page -->
+  document.addEventListener('DOMContentLoaded', function () {
     const logoLink = document.getElementById('logo-link');
-    
+
     const currentPath = window.location.pathname;
-    
+
     if (currentPath === '/' || currentPath === '/login') {
-      logoLink.addEventListener('click', function(e) {
+      logoLink.addEventListener('click', function (e) {
         e.preventDefault();
         logoLink.style.cursor = 'default';
-        logoLink.style.pointerEvents = 'none'; 
+        logoLink.style.pointerEvents = 'none';
       });
     }
   });
 </script>
-

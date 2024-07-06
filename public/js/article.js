@@ -36,7 +36,7 @@ async function fetchFiles() {
     const files = response.data;
 
     // Sort files alphabetically by filename
-    files.sort((a, b) => a.filename.localeCompare(b.filename));
+    files.sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
     return files;
   } catch (error) {
     throw new Error("Error fetching files:", error);
@@ -44,30 +44,21 @@ async function fetchFiles() {
 }
 
 function displayFiles(files) {
-  articleContainer.innerHTML = ""; // Clear previous content
-  files.forEach((file) => {
-    // Capitalize first letter of filename
-    const capitalizedFilename = capitalizeWords(file.filename);
+  const articles = files
+    .map((file) => {
+      const capitalizedTitle = capitalizeWords(file.metadata.title);
+      return `
+          <div class="article-info" onclick="window.location.href='/view-article?id=${file._id}'">
+            <div class="metadata">Title: ${capitalizedTitle}</div>
+            <div class="metadata">Researchers: ${file.metadata.researchers.join(", ")}</div>
+            <div class="metadata">Research Adviser: ${file.metadata.researchAdviser}</div>
+            <div class="metadata">Date Approved: ${file.metadata.dateApproved}</div>
+          </div>
+        `;
+    })
+    .join("");
 
-    const fileName = document.createElement("div");
-    fileName.classList.add("file-name");
-    fileName.textContent = capitalizedFilename;
-
-    const bookIcon = document.createElement("div");
-    bookIcon.innerHTML = '<ion-icon name="book-outline"></ion-icon>';
-    bookIcon.classList.add("book-icon");
-
-    // Container for data infos
-    const articleInfo = document.createElement("div");
-    articleInfo.classList.add("article-info");
-    articleInfo.appendChild(fileName);
-    articleInfo.appendChild(bookIcon);
-
-    fileName.addEventListener("click", () => {
-      window.location.href = `/view-article?id=${file._id}`;
-    });
-    articleContainer.appendChild(articleInfo);
-  });
+  articleContainer.innerHTML = articles;
 }
 
 function handleSearch() {
@@ -85,11 +76,15 @@ function handleSearch() {
   try {
     const regex = new RegExp(query, "i");
 
-    const filteredFiles = window.allFiles.filter((file) =>
-      regex.test(file.filename.toLowerCase()),
+    const filteredFiles = window.allFiles.filter(
+      (file) =>
+        //regex.test(file.filename.toLowerCase()) ||
+        regex.test(file.metadata.title.toLowerCase()),
+      //regex.test(file.metadata.researchers.join(" ").toLowerCase()) ||
+      //regex.test(file.metadata.researchAdviser.toLowerCase()),
     );
 
-    // Limit search results to 6 files
+    // Limit search results to 10 files
     displayFiles(filteredFiles.slice(0, 10));
   } catch (error) {
     console.error("Invalid regular expression:", error);

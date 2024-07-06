@@ -6,3 +6,23 @@ metadata: {
   },
   year: 2019,
 },
+
+
+const metadata = {
+  researchees: ['Alice', 'Bob', "Another Full Name"],
+  year: 2019
+};
+
+
+const metadata = {
+Title Of the Research: [‘IDO THE SMART WEDDING PLANNER’],
+Researchers: ['Advincula, Jovel O.', 'De Belen, John Lennox D. ', ‘Gallo, Rieza M.’, ‘Ocama, Kenn Rodolph F.’],
+Adviser: [‘Latip, Merlita C.’],
+Chairman of the Panel: [‘Matias, Sheila Marie M.’],
+Members of the Panel: [‘santiago, AL’, ‘Costales, jefferson A.’],
+CAS Dean: [‘Ph.D. Bolalin, Raymund B.’],
+Thesis Writing/Professor: [‘MIT, Anuncio, Hazel F.’],
+CAS Thesis Coordinator: [‘Costales, jefferson A.’],
+Year Approved: 2021
+};
+

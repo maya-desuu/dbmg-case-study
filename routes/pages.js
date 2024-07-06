@@ -9,7 +9,10 @@ const {
   articlePage,
   emailVerificationPage,
   viewArticlePage,
+  uploadFilePage,
 } = require("../controllers/pages");
+
+//const requireAdmin = require("../middlewares/requireAdmin");
 
 router.get("/", registerPage);
 router.get("/login", loginPage);

@@ -3,24 +3,23 @@ const { GridFsStorage } = require("multer-gridfs-storage");
 //const crypto = require("crypto");
 //const path = require("path");
 
-//const storage = new GridFsStorage({
-//  url: process.env.MONGO_URI,
-//  file: (req, file) => {
-//    return {
-//      filename: file.originalname,
-//      bucketName: "uploads",
-//      mimetype: file.mimetype,
-//    };
-//  },
-//});
-
 const storage = new GridFsStorage({
   url: process.env.MONGO_URI,
   file: (req, file) => {
     return {
       filename: file.originalname,
       bucketName: "uploads",
-      mimetype: file.mimetype,
+      metadata: {
+        title: "An article",
+        researchers: [
+          "Advincula, Jovel O.",
+          "De Belen, John Lennox D.",
+          "Gallo, Rieza M.",
+          "Ocama, Kenn Rodolph F.",
+        ],
+        researchAdviser: "Random Name",
+        dateApproved: "2019",
+      },
     };
   },
 });
