@@ -5,7 +5,6 @@ const passwordInput = document.querySelector("#password-input");
 
 // clearing input values
 document.addEventListener("DOMContentLoaded", function () {
-  nameInput.value = "";
   emailInput.value = "";
   passwordInput.value = "";
 });
@@ -15,21 +14,27 @@ form.addEventListener("submit", async (e) => {
 
   // input values
   const formData = {
-    name: nameInput.value,
     email: emailInput.value,
     password: passwordInput.value,
   };
 
   try {
     const { data } = await axios.post("/api/v1/auth/login", formData);
-    const { token, user } = data;
-    console.log(user);
-    console.log(token);
-    localStorage.setItem("token", token);
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ name: user.name, isAdmin: user.isAdmin }),
-    );
+    //const { user } = data;
+    //console.log(user);
+
+    if (data.adminToken) {
+      const adminToken = localStorage.setItem("adminToken", data.adminToken);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ name: data.user.name, isAdmin: data.user.isAdmin }),
+      );
+      console.log("adminToken", data.adminToken);
+    } else {
+      localStorage.setItem("token", data.token); // user token (too lazy to update values in all diff files)
+      localStorage.setItem("user", JSON.stringify({ name: data.user.name }));
+    }
 
     window.location.href = "/home";
   } catch (error) {

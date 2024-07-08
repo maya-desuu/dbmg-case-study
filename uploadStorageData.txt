@@ -1,0 +1,296 @@
+const metadataRefactored = [
+  {
+    metadata: {
+      title: "IDO THE SMART WEDDING PLANNER",
+      researchers: [
+        "Advincula, Jovel O.",
+        "De Belen, John Lennox D.",
+        "Gallo, Rieza M.",
+        "Ocuma, Kenn Rodolph F."
+      ],
+      researchAdviser: "Latip, Merlita C.",
+      dateApproved: "2021"
+    }
+  },
+  {
+    metadata: {
+      title: "GOBASECOAPP, A MOBILE APPLICATION FOR BARANGAY BASECO SCHEDULING MANAGEMENT SYSTEM",
+      researchers: [
+        "Galura, Judielle Nerrie C.",
+        "Bainto, Richard L.",
+        "Gonzales, Francess F.",
+        "Oledan, Kriz G."
+      ],
+      researchAdviser: "Costales, Jefferson A.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "THE DOCTOR IS-IN: A HYBRID ONLINE SCHEDULING MANAGEMENT SYSTEM FOR CHRIST THE KING MEDICAL CENTER",
+      researchers: [
+        "Dapadap, John Joel Sy.",
+        "Dolosa, Alfred P.",
+        "Esguerra, John Melvin P.",
+        "Osabel, Renniel A.",
+        "Villamor, Limuel John L."
+      ],
+      researchAdviser: "Costales, Jefferson A.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "BOTCAN: PLASTIC BOTTLE AND CAN SEGREGATION MACHINE FOR EARIST",
+      researchers: [
+        "Lazo, Joshua H.",
+        "Bacsal, Leonardo Jr. B.",
+        "Caamic, Justin Angelo",
+        "Florentino, Edgar Jr. P.",
+        "Nanzan, Sherwin Jasper k."
+      ],
+      researchAdviser: "Latip, Merlita C.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "PREGNANCY HEALTH CARE, AN ONLINE MONITORING AND SCHEDULING SYSTEM FOR PREGNANT PATIENTS",
+      researchers: [
+        "Lacpao, Jester",
+        "Espinosa, Angela T.",
+        "Sicat, Analyn",
+        "Corpuz, Juvie F.",
+        "Justo, Arnold A."
+      ],
+      researchAdviser: "Latip, Merlita C. MIT",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "FINANCIAL LENDING MANAGEMENT FOR COOP-PACO SORIANO PANDACAN DEVELOPMENT COOPERATIVE",
+      researchers: [
+        "Bobis, Janna Mae Maricar",
+        "Ruiz, Renz allen",
+        "Arriola, Alec",
+        "Ballono, Josephine"
+      ],
+      researchAdviser: "Latip, Merlita C.",
+      dateApproved: "2021"
+    }
+  },
+  {
+    metadata: {
+      title: "RESIDENT RECORD MANAGEMENT AND CERTIFICATE ISSUANCE SYSTEM FOR BARANGAY ADDITION HILLS, MANDALUYONG CITY",
+      researchers: [
+        "Garcia, John Lenard",
+        "Nacario, Eric Jett",
+        "Beruno, Ryan Mon",
+        "Alfaro, Aries",
+        "Fabro, Gerald"
+      ],
+      researchAdviser: "Dr. Jesus S. Paguigan. DIT.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "DESIGN, IMPLEMENTATION, CONFIGURATION AND MANAGEMENT FOR NETWORK TRAFFIC ANALYZER USING MIKROTIK DEVICE FOR DOSDOT NET",
+      researchers: [
+        "Dayrit, Sly C.",
+        "Manto, Kim M.",
+        "Palita, Arcee B.",
+        "Rivera, Angelyn B."
+      ],
+      researchAdviser: "Dr. Jesus S. Paguigan. DIT.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "I-PAW MANAGEMENT SYSTEM OF IMPOUND AND ADOPTED DOGS IN MANDALUYONG ANIMAL SHELTER AND FOUND",
+      researchers: [
+        "Borromeo, John Gabriel D.",
+        "Cabigon, Aldrin E.",
+        "De Guzman, Arlene L.",
+        "Guimalan, Christine",
+        "Roxas, China Brizza"
+      ],
+      researchAdviser: "Ladia, Arjo R.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "UNIFIED AUTOMATED BARANGAY MANAGEMENT INFORMATION AND SCHEDULING SYSTEM",
+      researchers: [
+        "Balauro, Princes Ericka O.",
+        "Quintana, Ann Nicole S.",
+        "Garcia, Cedric D.",
+        "Gallardo, Mc Allen M."
+      ],
+      researchAdviser: "Carlos, Ernante Jr. M.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "RETIREMENT MANAGEMENT SYSTEM FOR EARIST USING DATA MINING",
+      researchers: [
+        "Fernandez, kryscynth Janne M.",
+        "Bejer, Jenelyn M.",
+        "Olalo, Ron Harvey Q.",
+        "Pasco, Amieldry B.",
+        "Rona, Rico John R."
+      ],
+      researchAdviser: "Santiago, Al F.",
+      dateApproved: "2022"
+    }
+  },
+  {
+    metadata: {
+      title: "IN-APP BULLETIN AND QUEUE SYSTEM FOR DIFFERENT OUTLET OF QUEEN ELITE SALON",
+      researchers: [
+        "Arinavo, Angelo",
+        "Felicidario, John Aleen",
+        "Jamin, Mark Jholan",
+        "Lao, Jasrone"
+      ],
+      researchAdviser: "MIT. Gabas, Melody L.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "QUALIFICATIONS OF THE SCHOLARS USING QR SCANNER FOR YOUTH SERVANT LEADERSHIP AND EDUCATION PROGRAM UNDER CARITAS",
+      researchers: [
+        "Alcalde, Irene Mae A.",
+        "Alingayao, John Kenji B.",
+        "Decripito, Kisstyr Zeus C.",
+        "Morin, Martin P."
+      ],
+      researchAdviser: "DIT. Paguigan, Jesus S.",
+      dateApproved: "2023"
+    }
+  },
+  {    metadata: {
+      title: "PETIDENTITYAPP: A MOBILE APPLICATION WITH EMERGENCY RESCUE AND DOMESTIC PET ADOPTION FOR PET PARADISE PH",
+      researchers: [
+        "Olguera, Allen Paul G.",
+        "Macabebe, Bernadette C.",
+        "Rogel, Jesica L.",
+        "Nicolas, Ralph Laurenz T."
+      ],
+      researchAdviser: "MIT. Costales, Jefferson A.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "SKILL ASSESSMENT ANALYSIS AND EVALUATION OF EARIST-ITE DEPARTMENT USING CLASSIFICATION TECHNIQUE",
+      researchers: [
+        "Batlangao, Jayvee Astrophel C.",
+        "Cruz, Reign Francine I.",
+        "Gonzales, Zaldy Jr. B.",
+        "Mamangon, Michael",
+        "Silvestre, Hanna Mhie"
+      ],
+      researchAdviser: "Bungay, James Darryl D.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "MOBILE APPLICATION THAT IMPROVES EDUCATION AND ACADEMIC PERFORMANCE OF STUDENTS IN GEN. MIGUEL MALVAR ELEMENTARY SCHOOL",
+      researchers: [
+        "Cabreza, Mark Jerwin",
+        "Claro, Regie Jr.",
+        "Gonilat, Nell Joy",
+        "Macay, Joanne",
+        "Tagle, Van Artjay"
+      ],
+      researchAdviser: "MSCS. Santiago, Al F.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "MALWARE COUNTER AND PARENTAL CONTROL WEB BROWSER EXTENSION FOR CROSS PLATFORM APPLICATIONS WITH PARENTAL MONITORING",
+      researchers: [
+        "Curitana, Shekinah Joy N.",
+        "Ramirez, Alarbert Jr. J.",
+        "Sanita, Jessica T.",
+        "Tena, Mave Rick D."
+      ],
+      researchAdviser: "Ladia, Arjo R.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "WEB DEVELOPMENT FOR CHURCH MANAGEMENT; APPOINTMENT, EVENTS AND ACTIVITIES UPDATES FOR STO. NIÑO DE CONGRESO PARISH",
+      researchers: [
+        "Manggohom, John Reb M.",
+        "Misalang, John Edward M.",
+        "Ruiz, John Christian E.",
+        "Su-Ay, Kristal Jade N."
+      ],
+      researchAdviser: "MIT. Fajardo, Jovelyn W.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "CUPANG ANIMAL CLINIC APPOINTMENT SCHEDULING SYSTEM",
+      researchers: [
+        "Flores, Daniela May",
+        "Nunez, Dane Andrea",
+        "Yutatco, Rency Paul."
+      ],
+      researchAdviser: "MIT. Anuncio, hazel F.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "KNKFSP: TREASURY MANAGEMENT SYSTEM AND PREDICTING FUTURE INCOME USING DATA ANALYTICS FOR UNBOUND FOUNDATION ANTIPOLO EAST CLUSTER ",
+      researchers: [
+        "Alimoot, Jerrecho T.",
+        "Del Pilar, Rovic S.",
+        "Panotes, Miguel E.",
+        "Puno, Mark Wilson N.",
+        "Tulalian, John Roland P."
+      ],
+      researchAdviser: "Ladia, Arjo R.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "HYBRID MOBILE SCHOOL ELECTION AND PAGEANT VOTING APP USING QR CODE FOR SAN FELIPE NATIONAL HIGH SCHOOL ",
+      researchers: [
+        "Almeda, Wrandell T.",
+        "Invina, Jerymie DS.",
+        "Jimenez, Jonathan C.",
+        "Palacio, Sean Ian."
+      ],
+      researchAdviser: "MIT. Costales, Jefferson A.",
+      dateApproved: "2023"
+    }
+  },
+  {
+    metadata: {
+      title: "VEGETABLES AND FRUITS PRICE FORECASTING USING REGRESSION MODELS",
+      researchers: [
+        "Cardoza, Ronie C.",
+        "Invina, Jerymie DS.",
+        "Jimenez, Jonathan C.",
+        "Palacio, Sean Ian."
+      ],
+      researchAdviser: "MIT. Costales, Jefferson A.",
+      dateApproved: "2023"
+    }
+  }
+];
+

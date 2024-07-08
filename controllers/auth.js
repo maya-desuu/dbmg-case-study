@@ -2,6 +2,7 @@ const User = require("../models/User");
 const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const otpService = require("../services/otp");
+const jwt = require("jsonwebtoken");
 
 const validateUserInput = async (req, res) => {
   const newUser = new User(req.body);
@@ -96,18 +97,13 @@ function generateTempToken() {
 }
 
 const login = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
 
   switch (true) {
-    case !name:
-      throw new BadRequestError("Name is required.");
-      break;
     case !email:
       throw new BadRequestError("Email is required.");
-      break;
     case !password:
       throw new BadRequestError("Password is required.");
-      break;
   }
 
   // check if user exists
@@ -122,18 +118,28 @@ const login = async (req, res) => {
     throw new UnauthenticatedError("Incorrect Password");
   }
 
-  console.log(user.email);
-  console.log(process.env.ADMIN_EMAIL);
+  //if (user.email === process.env.ADMIN_EMAIL) {
+  //  user.isAdmin = true;
+  //  jwt.sign;
+  //}
 
-  //let isAdmin = false;
   if (user.email === process.env.ADMIN_EMAIL) {
     user.isAdmin = true;
+    const adminToken = jwt.sign(
+      { userId: user._id, name: user.name, isAdmin: user.isAdmin },
+      process.env.ADMIN_JWT,
+      { expiresIn: process.env.JWT_LIFETIME },
+    );
+    const token = user.createJWT();
+    return res.status(StatusCodes.OK).json({
+      user: { name: user.name, isAdmin: user.isAdmin },
+      token,
+      adminToken,
+    });
   }
 
   token = user.createJWT();
-  res
-    .status(StatusCodes.OK)
-    .json({ user: { name: user.name, isAdmin: user.isAdmin }, token });
+  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
 module.exports = {

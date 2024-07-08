@@ -44,8 +44,8 @@ const errorHandler = (error) => {
     );
   } else {
     console.error("Error:", error.message);
-    toastr.info(error.message || "An unexpected error occurred", "Info");
-    setTimeout(() => (window.location.href = "/login"), 3000);
+    //toastr.error(error.message || "An unexpected error occurred", "Error");
+    //setTimeout(() => (window.location.href = "/login"), 3000);
   }
 };
 
@@ -87,7 +87,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function fetchFile(fileId) {
   const token = localStorage.getItem("token");
   if (!token) {
-    throw new Error("Please log in first to access files. Redirecting.");
+    toastr.error("Please log in first to access files. Redirecting.", "Error");
+    setTimeout(() => (window.location.href = "/login"), 3000);
+    //throw new Error("Please log in first to access files. Redirecting.");
   }
 
   try {
@@ -111,8 +113,9 @@ async function loadPDF(pdfData) {
     const loadingTask = pdfjsLib.getDocument({ data: pdfData });
     return await loadingTask.promise;
   } catch (error) {
-    throw new Error(
+    toastr.error(
       "Error loading PDF. The file might be corrupted or unsupported.",
+      "Error",
     );
   }
 }
@@ -154,6 +157,6 @@ toastr.options = {
   positionClass: "toast-right-middle",
   preventDuplicates: true,
   showDuration: "300",
-  //hideDuration: "1000",
+  hideDuration: "1000",
   timeOut: "3000",
 };

@@ -1,28 +1,55 @@
 <!doctype html>
 <html lang="en">
-  <%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %>
+
   <body>
     <%- include('./partials/header.ejs') %>
-    <%- include('./partials/nav.ejs') %>
+      <%- include('./partials/nav.ejs') %>
 
-    <div class="about-container">
-      <div class="about content">
-        <p id="about-intro">ABOUT PAGE IS STILL EMPTY</p>
-        <p id="about-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita
-          dolorum minus ducimus odio sunt dolore assumenda accusamus harum
-          dignissimos ipsa iure veniam, quidem natus corporis fugit, tempore at
-          neque ea.
-        </p>
-        <p id="about-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita
-          dolorum minus ducimus odio sunt dolore assumenda accusamus harum
-          dignissimos ipsa iure veniam, quidem natus corporis fugit, tempore at
-          neque ea.
-        </p>
-      </div>
-    </div>
+        <div class="about-container">
+          <div class="about content">
+            <p id="about-intro">ABOUT THE SYSTEM</p>
+            <p id="about-body">
+              CSS Research Document Archive is built on the premise of making archiving less arduous. We understand that
+              managing and preserving important research documents can be a daunting task, so we've created a solution
+              that simplifies the process and enhances accessibility. Our archive is designed to help teachers (or
+              admins) easily store and organize documents with minimal hassle and for students to reference their own
+              papers using contributions from their fellow senior students or even former students.
+            </p>
+            <div class="about-container-two">
+              <div class="notable-f-cont">
+                <div id="notable-f">Notable Features:</div>
+                <ul class="feature-list">
+                  <li>OTP service</li>
+                  <li>Dynamic PDF rendering</li>
+                  <li>Basic search engine</li>
+                  <li>Admin privileges: upload PDF's</li>
+                </ul>
+              </div>
+              <div class="built-u-cont">
+                <div id="built-u">Built Using:</div>
+                <ul class="built-list">
+                  <li>Plain old HTML & CSS</li>
+                  <li>Plain old JavaScript</li>
+                  <li>Express</li>
+                  <li>Mongoose</li>
+                </ul>
+              </div>
+              <div class="group-cont">
+                <div class="group-num">BSCS-1C (Group 10)</div>
+                <div class="members">Members:</div>
+                <ul class="member-list">
+                  <li>Decena, Jackielou</li>
+                  <li>Francia, Jeremiah P.</li>
+                  <li>Rica, Angela Gaspar</li>
+                  <li>Gloriane, Micco</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <%- include('./partials/footer.ejs') %>
+        <%- include('./partials/footer.ejs') %>
   </body>
+
 </html>

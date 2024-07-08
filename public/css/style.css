@@ -8,7 +8,6 @@
   margin: 0;
   background-color: rgb(255, 255, 255);
   color: #000000;
-  /*font-size: 16px;*/
   font-family:
     DM Sans,
     sans-serif;
@@ -206,18 +205,64 @@ nav>ul {
 }
 
 .about {
+  font-size: 18px;
   gap: 16px;
-  justify-content: flex-start;
-  height: 500px;
-  width: 400px;
+  padding: 30px;
+  margin-top: 24px;
+  width: 50%;
+  height: auto;
+  /*border: 3px solid #4f9b3d;*/
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
 }
 
 #about-intro {
-  font-size: xx-large;
+  font-weight: bolder;
+  font-size: 34px;
+}
+
+#about-body {
+  margin-bottom: 12px;
+}
+
+ul.feature-list,
+ul.built-list,
+ul.member-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.about-container-two {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 50px;
+}
+
+.notable-f-cont,
+.built-u-cont,
+.group-cont {
+  flex: 1;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#notable-f,
+#built-u {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.group-num {
+  font-weight: bold;
+}
+
+.members {
+  margin-bottom: 10px;
   font-weight: bold;
 }
 
@@ -503,6 +548,7 @@ input::placeholder {
 
 footer {
   /*flex: 1;*/
+  margin-top: auto;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 12px;
@@ -648,6 +694,7 @@ footer {
 
 .account-content {
   flex: 1;
+  border-radius: 8px;
   border: 1px solid black;
 }
 
@@ -708,7 +755,8 @@ h1.upload-file-h1 {
 }
 
 .upload-input[type="text"],
-select,
+.upload-input[type="date"],
+.dropdown,
 #browse-file {
   width: 100%;
   padding: 8px;
@@ -717,7 +765,7 @@ select,
   border-radius: 4px;
 }
 
-select {
+.dropdown {
   appearance: none;
   -webkit-appearance: none;
   margin-bottom: 15px;

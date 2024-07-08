@@ -23,7 +23,7 @@ const generateOTP = async (email) => {
     service: "gmail",
     host: "smtp.gmail.com",
     port: 465,
-    secure: true,
+    secure: false,
     auth: {
       user: process.env.COMSCI_LIBRARY_EMAIL,
       pass: process.env.COMSCI_LIBRARY_PASSWORD,

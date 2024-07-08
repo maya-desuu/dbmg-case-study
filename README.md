@@ -1,12 +1,3 @@
-#### Low Prio To Do:
-
-- cooldown for resend otp
-- create logic on how to become admin
-- create gui for uploading files if admin
-- display a success msg if registration is successful, display err otherwise
-- send schema validation errs to reg page
-- using exports for toastr configs
-
 #### Setup
 
 ```bash

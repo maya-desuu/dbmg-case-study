@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { StatusCodes } = require("http-status-codes");
 
-// Initialize gridfs once db conn is open
+// initialize gridfs once db conn is open
 const conn = mongoose.connection;
 conn.once("open", () => {
   gridFsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
@@ -30,7 +30,7 @@ const getFile = async (req, res) => {
   console.log("get file params: ", req.params);
 
   try {
-    // Convert fileId to ObjectId
+    // convert fileId to ObjectId
     const objectId = new mongoose.Types.ObjectId(fileId);
 
     const files = await gridFsBucket.find({ _id: objectId }).toArray();

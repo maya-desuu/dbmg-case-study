@@ -35,7 +35,7 @@ async function fetchFiles() {
     const response = await axios.get("/api/v1/files");
     const files = response.data;
 
-    // Sort files alphabetically by filename
+    // Sort files alphabetically by title
     files.sort((a, b) => a.metadata.title.localeCompare(b.metadata.title));
     return files;
   } catch (error) {
@@ -46,21 +46,62 @@ async function fetchFiles() {
 function displayFiles(files) {
   const articles = files
     .map((file) => {
-      const capitalizedTitle = capitalizeWords(file.metadata.title);
+      console.log("File metadata:", file.metadata);
+
+      const capitalizedTitle = capitalizeWords(
+        file.metadata.title || "No Title",
+      );
+
+      let researchers = "Not specified";
+      if (Array.isArray(file.metadata.researchers)) {
+        researchers = file.metadata.researchers.join(", ");
+      } else if (file.metadata["researcher-1"]) {
+        researchers = [1, 2, 3, 4]
+          .map((i) => file.metadata[`researcher-${i}`])
+          .filter(Boolean)
+          .join(", ");
+      }
+
+      const researchAdviser =
+        file.metadata.researchAdviser ||
+        file.metadata["research-adviser"] ||
+        "Not specified";
+      const dateApproved =
+        file.metadata.dateApproved ||
+        file.metadata["date-approved"] ||
+        "Not specified";
+
       return `
-          <div class="article-info" onclick="window.location.href='/view-article?id=${file._id}'">
-            <div class="metadata">Title: ${capitalizedTitle}</div>
-            <div class="metadata">Researchers: ${file.metadata.researchers.join(", ")}</div>
-            <div class="metadata">Research Adviser: ${file.metadata.researchAdviser}</div>
-            <div class="metadata">Date Approved: ${file.metadata.dateApproved}</div>
-          </div>
-        `;
+        <div class="article-info" onclick="window.location.href='/view-article?id=${file._id}'">
+          <div class="metadata">Title: ${capitalizedTitle}</div>
+          <div class="metadata">Researchers: ${researchers}</div>
+          <div class="metadata">Research Adviser: ${researchAdviser}</div>
+          <div class="metadata">Date Approved: ${dateApproved}</div>
+        </div>
+      `;
     })
     .join("");
-
   articleContainer.innerHTML = articles;
 }
 
+//function displayFiles(files) {
+//  const articles = files
+//    .map((file) => {
+//      const capitalizedTitle = capitalizeWords(file.metadata.title);
+//      return `
+//          <div class="article-info" onclick="window.location.href='/view-article?id=${file._id}'">
+//            <div class="metadata">Title: ${capitalizedTitle}</div>
+//            <div class="metadata">Researchers: ${file.metadata.researchers.join(", ")}</div>
+//            <div class="metadata">Research Adviser: ${file.metadata.researchAdviser}</div>
+//            <div class="metadata">Date Approved: ${file.metadata.dateApproved}</div>
+//          </div>
+//        `;
+//    })
+//    .join("");
+//
+//  articleContainer.innerHTML = articles;
+//}
+//
 function handleSearch() {
   let query = searchInput.value.trim().toLowerCase();
 
@@ -70,7 +111,7 @@ function handleSearch() {
     return;
   }
 
-  // Escape special characters in the query
+  // escape special characters in the query
   query = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
   try {
@@ -79,12 +120,12 @@ function handleSearch() {
     const filteredFiles = window.allFiles.filter(
       (file) =>
         //regex.test(file.filename.toLowerCase()) ||
-        regex.test(file.metadata.title.toLowerCase()),
+        regex.test(file.metadata.title),
       //regex.test(file.metadata.researchers.join(" ").toLowerCase()) ||
-      //regex.test(file.metadata.researchAdviser.toLowerCase()),
+      //regex.test(file.metadata.dateApproved),
     );
 
-    // Limit search results to 10 files
+    // limit search results to 10 files
     displayFiles(filteredFiles.slice(0, 10));
   } catch (error) {
     console.error("Invalid regular expression:", error);
@@ -92,7 +133,7 @@ function handleSearch() {
   }
 }
 
-// cool toggler
+// toggler
 function toggleVisibility(element, isVisible) {
   element.style.display = isVisible ? "block" : "none";
 }

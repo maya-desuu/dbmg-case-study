@@ -12,7 +12,7 @@ const storeFormData = async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign(
       { formDataId: savedFormData._id },
-      process.env.FORM_DATA_TOKEN,
+      process.env.FORM_DATA_JWT,
       { expiresIn: "1h" },
     );
 

@@ -10,7 +10,7 @@ const {
   login,
 } = require("../controllers/auth");
 
-const { authentication } = require("../middlewares/authentication");
+//const { authentication } = require("../middlewares/authentication");
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -22,7 +22,7 @@ router.post("/validate-user-input", validateUserInput);
 router.post("/generate-otp", generateOTP);
 router.post("/verify-otp", verifyOTP);
 router.post("/register", register);
-router.post("/login", authLimiter, login); // limit attempts when loggin in (protection against bruteforce ig)
+router.post("/login", authLimiter, login); // limit attempts when logging in (protection against bruteforce ig)
 
 //router.post("/register", register);
 

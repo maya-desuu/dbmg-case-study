@@ -9,12 +9,12 @@
         <div class="account-container">
           <section class="admin-section">
             <div class="admin-content content">
-              <form id="upload-form" class="upload-form">
+              <form id="upload-form" class="upload-form" enctype="multipart/form-data">
                 <h1 class="upload-file-h1">Upload File</h1>
 
                 <div class="upload-form-control">
                   <label for="title-input" class="upload-label">Title</label>
-                  <input class="upload-input" type="text" id="title-input" name="title" required>
+                  <input class="upload-input" type="text" id="title-input" name="title">
                 </div>
 
                 <div class="dropdown-container">
@@ -34,19 +34,30 @@
                   </select>
                 </div>
 
-                <div class="upload-form-control">
-                  <label for="researcher-input" class="upload-label">Researcher</label>
-                  <input class="upload-input" type="text" id="researcher-input" name="researcher" required>
+                <div class="upload-form-control" id="researcher-container">
+                  <!-- Initial input (Researcher 1) -->
+                  <div class="researcher-form-control">
+                    <label for="researcher-input-1" class="upload-label">Researcher 1</label>
+                    <input class="upload-input" type="text" id="researcher-input-1" name="researcher-1">
+                  </div>
                 </div>
+                <!--<div class="upload-form-control">-->
+                <!---->
+                <!--  <div class="upload-form-control" id="researcher-container">-->
+                <!--    <label for="researcher-input" class="upload-label">Researcher</label>-->
+                <!--    <input class="upload-input" type="text" id="researcher-input" name="researcher">-->
+                <!--    <!-- additional researcher labels and inputs will be dynamically generated here -->
+                <!--  </div>-->
+                <!--</div>-->
 
                 <div class="upload-form-control">
                   <label for="research-adviser" class="upload-label">Research Adviser</label>
-                  <input class="upload-input" type="text" id="research-adviser" name="research-adviser" required>
+                  <input class="upload-input" type="text" id="research-adviser" name="research-adviser">
                 </div>
 
                 <div class="upload-form-control">
                   <label for="date-approved" class="upload-label">Date Approved</label>
-                  <input class="upload-input" type="text" id="date-approved" name="date-approved" required>
+                  <input class="upload-input" type="date" id="date-approved" name="date-approved">
                 </div>
 
                 <div class="form-control" id='browse-file-container'>
@@ -54,7 +65,7 @@
                     <label for="browse-file" class="upload-label">File</label>
                     <div><span id="upload-note">NOTE:</span> Only pdf' s are supported</div>
                   </div>
-                  <input class="upload-input" type="file" id="browse-file" name="files" required>
+                  <input class="upload-input" type="file" id="browse-file" name="files">
                 </div>
 
                 <button class="upload-btn" type="submit">Upload</button>
@@ -79,6 +90,13 @@
 
         </div>
         <%- include('./partials/footer.ejs') %>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
+          <!-- deps and cdns for toastr -->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
           <script src="./js/account.js"></script>
   </body>
 

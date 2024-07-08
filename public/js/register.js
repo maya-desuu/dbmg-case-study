@@ -1,4 +1,4 @@
-const form = document.querySelector(".form");
+const form = document.querySelector(".register-form");
 const nameInput = document.querySelector("#name-input");
 const emailInput = document.querySelector("#email-input");
 const studentNumberInput = document.querySelector("#student-number-input");

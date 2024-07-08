@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const authentication = require("../middlewares/authentication");
+const authUser = require("../middlewares/authUser");
+
 const upload = require("../services/uploadStorage");
 const {
   handleFileUpload,
@@ -9,9 +10,11 @@ const {
   getAllFiles,
 } = require("../controllers/files");
 
+const authAdmin = require("../middlewares/authAdmin");
+
 router.get("/", getAllFiles);
-router.get("/:id", authentication, getFile);
-router.post("/upload/file", upload, handleFileUpload);
-router.post("/upload/folder", upload, handleFileUpload);
+router.get("/:id", authUser, getFile);
+router.post("/upload/file", authAdmin, upload, handleFileUpload);
+router.post("/upload/folder", authAdmin, upload, handleFileUpload);
 
 module.exports = router;
