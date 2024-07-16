@@ -3,9 +3,11 @@ const { UnauthenticatedError, BadRequestError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const otpService = require("../services/otp");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const validateUserInput = async (req, res) => {
   const newUser = new User(req.body);
+  console.log(newUser);
   try {
     await newUser.validate(); // validate input against the schema
     res.status(StatusCodes.OK).json({ message: "Input is valid." });
@@ -81,7 +83,9 @@ const register = async (req, res) => {
         .json({ msg: "Email mismatch" });
     }
 
+    // create user on db
     const user = await User.create(userData);
+
     //const token = user.createJWT() // REMOVED FOR NOW BUT IF THERE ARE CHANGES IN THE REGIST FLOW THEN MIGHT USE THIS AGAIN
     res.status(StatusCodes.CREATED).json({ user: { name: user.name } });
   } catch (error) {
@@ -98,6 +102,7 @@ function generateTempToken() {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
 
   switch (true) {
     case !email:
@@ -114,28 +119,27 @@ const login = async (req, res) => {
 
   // compare password
   const isPasswordCorrect = await user.comparePassword(password);
-  if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Incorrect Password");
-  }
+  try {
+    if (!isPasswordCorrect) {
+      throw new UnauthenticatedError("Incorrect Password");
+    }
 
-  //if (user.email === process.env.ADMIN_EMAIL) {
-  //  user.isAdmin = true;
-  //  jwt.sign;
-  //}
-
-  if (user.email === process.env.ADMIN_EMAIL) {
-    user.isAdmin = true;
-    const adminToken = jwt.sign(
-      { userId: user._id, name: user.name, isAdmin: user.isAdmin },
-      process.env.ADMIN_JWT,
-      { expiresIn: process.env.JWT_LIFETIME },
-    );
-    const token = user.createJWT();
-    return res.status(StatusCodes.OK).json({
-      user: { name: user.name, isAdmin: user.isAdmin },
-      token,
-      adminToken,
-    });
+    if (user.email === process.env.ADMIN_EMAIL) {
+      user.isAdmin = true;
+      const adminToken = jwt.sign(
+        { userId: user._id, name: user.name, isAdmin: user.isAdmin },
+        process.env.ADMIN_JWT,
+        { expiresIn: process.env.JWT_LIFETIME },
+      );
+      const token = user.createJWT();
+      return res.status(StatusCodes.OK).json({
+        user: { name: user.name, isAdmin: user.isAdmin },
+        token,
+        adminToken,
+      });
+    }
+  } catch (error) {
+    console.error(error);
   }
 
   token = user.createJWT();
